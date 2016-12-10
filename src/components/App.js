@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import './App.css';
 
@@ -5,6 +7,11 @@ import Canvas from './Canvas';
 import Actor from './uml/Actor';
 
 class App extends Component {
+  state: {
+    actorX: number;
+    actorY: number;
+  };
+
   constructor() {
     super();
 
@@ -14,7 +21,7 @@ class App extends Component {
     };
   }
 
-  actorMove(x, y) {
+  actorMove(x: number, y: number) {
     this.setState({
       actorX: x,
       actorY: y
