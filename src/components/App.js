@@ -6,6 +6,10 @@ import './App.css';
 import Canvas from './Canvas';
 import Actor from './uml/Actor';
 
+const canvasStyle = {
+  background: 'cornsilk'
+};
+
 class App extends Component {
   state: {
     actorX: number;
