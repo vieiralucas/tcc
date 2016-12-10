@@ -20,8 +20,8 @@ class App extends Component {
     super();
 
     this.state = {
-      actorX: 0,
-      actorY: 0
+      actorX: 100,
+      actorY: 100
     };
   }
 
@@ -34,9 +34,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Canvas>
-          <Actor x={this.state.actorX} y={this.state.actorY} onMove={this.actorMove.bind(this)} />
+      <div className='App'>
+        <Canvas width={ window.innerWidth } height={ window.innerHeight } style={ canvasStyle }>
+          <Actor name={ 'lucas' } x={this.state.actorX} y={this.state.actorY} onMove={this.actorMove.bind(this)} />
         </Canvas>
       </div>
     );
