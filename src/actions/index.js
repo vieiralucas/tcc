@@ -1,0 +1,1 @@
+export const UML_COMPONENT_MOVE = 'UML_COMPONENT_MOVE';

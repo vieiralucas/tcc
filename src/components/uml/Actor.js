@@ -3,8 +3,10 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 import type { DraggableData } from 'react-draggable';
+import Selectable from './Selectable';
 
 type ActorProps = {
+  id: number;
   name: string;
   x: number;
   y: number;
@@ -12,7 +14,7 @@ type ActorProps = {
   onMove: (x: number, y: number) => void;
 };
 
-const Actor = ({ name, x, y, onMove, scale }: ActorProps) => {
+const Actor = ({ id, name, x, y, onMove, scale }: ActorProps) => {
   if (scale == null) {
     scale = 1;
   }
@@ -48,30 +50,32 @@ const Actor = ({ name, x, y, onMove, scale }: ActorProps) => {
     y2: (height / 2) - (height / 20)
   };
 
-  const handleDrag = (e: Event, data: DraggableData) => onMove(x + data.deltaX , y + data.deltaY);
+  const handleDrag = (e: Event, data: DraggableData) => onMove(id, x + data.deltaX , y + data.deltaY);
 
   return (
-    <Draggable onDrag={ handleDrag } >
-      <svg x={ x } y={ y } width={ width } height={ height } cursor={ 'pointer' }>
-        <ellipse cx={ headCenter.x } cy={ headCenter.y }
-          rx={ headRadius } ry={ headRadius }
-          fillOpacity={ 0 } stroke="black" strokeWidth={ 1 } />
+    <Selectable x={ x } y={ y } width={ width } height={ height } isSelected={ true }>
+      <Draggable onDrag={ handleDrag } >
+        <svg x={ x } y={ y } width={ width } height={ height } cursor={ 'pointer' }>
+          <ellipse cx={ headCenter.x } cy={ headCenter.y }
+            rx={ headRadius } ry={ headRadius }
+            fillOpacity={ 0 } stroke='black' strokeWidth={ 1 } />
 
-        /* body */
-        <line x1={ bodyStart.x } y1={ bodyStart.y } x2={ bodyEnd.x } y2={ bodyEnd.y } stroke="black" strokeWidth={ 1 } />
+          /* body */
+          <line x1={ bodyStart.x } y1={ bodyStart.y } x2={ bodyEnd.x } y2={ bodyEnd.y } stroke='black' strokeWidth={ 1 } />
 
-        /* arm */
-        <line x1={ arm.x1 } y1={ arm.y1 } x2={ arm.x2 } y2={ arm.y2 } stroke="black" strokeWidth={ 1 } />
+          /* arm */
+          <line x1={ arm.x1 } y1={ arm.y1 } x2={ arm.x2 } y2={ arm.y2 } stroke='black' strokeWidth={ 1 } />
 
-        /* left leg */
-        <line x1={ bodyEnd.x } y1={ bodyEnd.y } x2={ arm.x1 } y2={ height - fontSize } stroke="black" strokeWidth={ 1 } />
-        /* right leg */
-        <line x1={ bodyEnd.x } y1={ bodyEnd.y } x2={ arm.x2 } y2={ height - fontSize } stroke="black" strokeWidth={ 1 } />
+          /* left leg */
+          <line x1={ bodyEnd.x } y1={ bodyEnd.y } x2={ arm.x1 } y2={ height - fontSize } stroke='black' strokeWidth={ 1 } />
+          /* right leg */
+          <line x1={ bodyEnd.x } y1={ bodyEnd.y } x2={ arm.x2 } y2={ height - fontSize } stroke='black' strokeWidth={ 1 } />
 
-        /* actor name */
-        <text x={ width / 2} y={ height } style={ nameStyle }>{ name }</text>
-      </svg>
-    </Draggable>
+          /* actor name */
+          <text x={ width / 2} y={ height } style={ nameStyle }>{ name }</text>
+        </svg>
+      </Draggable>
+    </Selectable>
   );
 };
 

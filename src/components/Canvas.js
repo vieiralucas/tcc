@@ -1,9 +1,14 @@
 // @flow
 
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
+import Actor from './uml/Actor';
 
 type WheelEvent = {
   deltaY: number
+};
+
+const canvasStyle = {
+  background: 'cornsilk'
 };
 
 class Canvas extends Component {
@@ -26,17 +31,32 @@ class Canvas extends Component {
     });
   }
 
+  renderComponents(scale: number) {
+    const { components } = this.props;
+    const componentsJsx = components.map((component, i) => {
+      switch(component.type) {
+      case 'actor':
+        return this.renderActor(component, scale, i);
+      default:
+        throw new Error(`Unknown uml component: ${component.type}`);
+      }
+    });
+
+    return componentsJsx;
+  }
+
+  renderActor(actor: any, scale: number, key: number) {
+    const { id, name, x, y } = actor;
+    return <Actor key={ id } id={ id } name={ name } x={ x } y={ y } onMove={ this.props.onComponentMove } scale={ scale } />
+  }
+
   render() {
     const { scale } = this.state;
-    const { children, width, height, style } = this.props;
-
-    const childrenWithScale = Children.map(children,
-                                           child => React.cloneElement(child, { scale }));
+    const { height } = this.props;
 
     return (
-      <svg width={ width } height={ height } style={ style }
-        onWheel={ this.handleZoom.bind(this) }>
-        { childrenWithScale }
+      <svg width={ '100%' } height={ height } onWheel={ this.handleZoom.bind(this) } style={ canvasStyle }>
+        { this.renderComponents(scale) }
       </svg>
     );
   }
