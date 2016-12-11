@@ -9,7 +9,7 @@ type ActorProps = {
   x: number;
   y: number;
   scale?: number;
-  onMove: (x: number, y: number) => void
+  onMove: (x: number, y: number) => void;
 };
 
 const Actor = ({ name, x, y, onMove, scale }: ActorProps) => {
@@ -52,7 +52,7 @@ const Actor = ({ name, x, y, onMove, scale }: ActorProps) => {
 
   return (
     <Draggable onDrag={ handleDrag } >
-      <svg x={ x } y={ y } width={ width } height={ height } >
+      <svg x={ x } y={ y } width={ width } height={ height } cursor={ 'pointer' }>
         <ellipse cx={ headCenter.x } cy={ headCenter.y }
           rx={ headRadius } ry={ headRadius }
           fillOpacity={ 0 } stroke="black" strokeWidth={ 1 } />
