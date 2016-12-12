@@ -21,7 +21,7 @@ const components: Reducer = (state = mock.components, action) => {
     });
 
     if (component) {
-      const newComponent = Object.assign(component, { x: action.x, y: action.y });
+      const newComponent = { ...component, x: action.x, y: action.y };
       return [...state.slice(0, pos), newComponent, ...state.slice(pos + 1)];
     }
   }
