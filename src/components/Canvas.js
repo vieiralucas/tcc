@@ -7,67 +7,58 @@ import UseCase from './uml/UseCase';
 type WheelEvent = {
   deltaY: number
 };
+type CanvasProps = {
+  width: number;
+  height: number;
+  components: Array<any>;
+  onComponentMove: (id: number, x: number, y: number) => void;
+  onComponentSelected: (id: number) => void;
+  onComponentUnselected: (id: number) => void;
+  selected: number;
+};
 
 const canvasStyle = {
   background: 'cornsilk'
 };
 
-class Canvas extends Component {
-  state: {
-    scale: number;
-  };
-
-  constructor() {
-    super();
-
-    this.state = {
-      scale: 1
-    };
-  };
-
-  handleZoom({ deltaY }: WheelEvent) {
-    const newScale = this.state.scale + deltaY * 0.1;
-    this.setState({
-      scale: newScale >= 1 ? newScale : 1
-    });
-  }
-
-  renderComponents(scale: number) {
-    const { components } = this.props;
+const Canvas = (props: CanvasProps) => {
+  const renderComponents = () => {
+    const { components } = props;
     const componentsJsx = components.map(component => {
       switch(component.type) {
       case 'actor':
-        return this.renderActor(component, scale);
+        return renderActor(component);
       case 'use-case':
-        return this.renderUseCase(component, scale);
+        return renderUseCase(component);
       default:
         throw new Error(`Unknown uml component: ${component.type}`);
       }
     });
 
     return componentsJsx;
-  }
+  };
 
-  renderActor(actor: any, scale: number) {
+  const renderActor = (actor: any) => {
     const { id, name, x, y } = actor;
-    return <Actor key={ id } id={ id } name={ name } x={ x } y={ y } onMove={ this.props.onComponentMove } scale={ scale } />
-  }
+    const isSelected = props.selected === actor.id;
 
-  renderUseCase(useCase: any, scale: number) {
+    return <Actor key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected}  onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
+  };
+
+  const renderUseCase = (useCase: any) => {
     const { id, name, x, y } = useCase;
-    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={this.props.onComponentMove} scale={scale} />
-  }
+    const isSelected = props.selected === useCase.id;
 
-  render() {
-    const { scale } = this.state;
-    const { height } = this.props;
+    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected} onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
+  };
 
-    return (
-      <svg width={ '100%' } height={ height } onWheel={ this.handleZoom.bind(this) } style={ canvasStyle }>
-        { this.renderComponents(scale) }
-      </svg>
-    );
-  }
-}
+  const { width, height } = props;
+
+  return (
+    <svg width={width} height={height} style={canvasStyle}>
+      { renderComponents() }
+    </svg>
+  );
+};
 
 export default Canvas;

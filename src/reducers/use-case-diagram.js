@@ -1,16 +1,20 @@
 // @flow
 
-import { UML_COMPONENT_MOVE } from '../actions';
+import { combineReducers } from 'redux';
 import type { Reducer } from 'redux';
 
-const mock = [
-  { id: 1, type: 'actor', name: 'lucas', x: 10, y: 10 },
-  { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 20, y: 20 }
-];
+import { UML_COMPONENT_MOVE, UML_COMPONENT_SELECTED, UML_COMPONENT_UNSELECTED } from '../actions';
 
-const useCaseDiagram: Reducer = (state = mock, action) => {
-  switch (action.type) {
-  case UML_COMPONENT_MOVE:
+const mock = {
+  components: [
+    { id: 1, type: 'actor', name: 'lucas', x: 10, y: 10 },
+    { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 20, y: 20 }
+  ],
+  selectedId: null
+};
+
+const components: Reducer = (state = mock.components, action) => {
+  if (action.type === UML_COMPONENT_MOVE) {
     let pos = 0;
     const component = state.find((c, i) => {
       pos = i;
@@ -21,11 +25,24 @@ const useCaseDiagram: Reducer = (state = mock, action) => {
       const newComponent = Object.assign(component, { x: action.x, y: action.y });
       return [...state.slice(0, pos), newComponent, ...state.slice(pos + 1)];
     }
-
-    return state;
-  default:
-    return state;
   }
+
+  return state;
 };
 
-export default useCaseDiagram;
+const selectedId: Reducer = (state = mock.selectedId, action) => {
+  if (action.type === UML_COMPONENT_SELECTED) {
+    return action.id;
+  }
+
+  if (action.type === UML_COMPONENT_UNSELECTED) {
+    return null;
+  }
+
+  return state;
+};
+
+export default combineReducers({
+  components,
+  selectedId
+});
