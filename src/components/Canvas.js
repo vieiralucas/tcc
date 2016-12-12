@@ -1,12 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import Actor from './uml/Actor';
 import UseCase from './uml/UseCase';
 
-type WheelEvent = {
-  deltaY: number
-};
 type CanvasProps = {
   width: number;
   height: number;
@@ -22,6 +19,20 @@ const canvasStyle = {
 };
 
 const Canvas = (props: CanvasProps) => {
+  const renderActor = (actor: any) => {
+    const { id, name, x, y } = actor;
+    const isSelected = props.selected === actor.id;
+
+    return <Actor key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected}  onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
+  };
+
+  const renderUseCase = (useCase: any) => {
+    const { id, name, x, y } = useCase;
+    const isSelected = props.selected === useCase.id;
+
+    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected} onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
+  };
+
   const renderComponents = () => {
     const { components } = props;
     const componentsJsx = components.map(component => {
@@ -38,19 +49,6 @@ const Canvas = (props: CanvasProps) => {
     return componentsJsx;
   };
 
-  const renderActor = (actor: any) => {
-    const { id, name, x, y } = actor;
-    const isSelected = props.selected === actor.id;
-
-    return <Actor key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected}  onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
-  };
-
-  const renderUseCase = (useCase: any) => {
-    const { id, name, x, y } = useCase;
-    const isSelected = props.selected === useCase.id;
-
-    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected} onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
-  };
 
   const { width, height } = props;
 
