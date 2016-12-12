@@ -29,7 +29,7 @@ const Actor = ({ id, name, x, y, onMove, scale }: ActorProps) => {
 
   const headCenter = {
     x: width / 2,
-    y: (height / 3) - headRadius
+    y: (height / 3.5) - headRadius
   };
   const nameStyle = {
     fontSize: `${fontSize}px`,
@@ -72,7 +72,7 @@ const Actor = ({ id, name, x, y, onMove, scale }: ActorProps) => {
           <line x1={ bodyEnd.x } y1={ bodyEnd.y } x2={ arm.x2 } y2={ height - fontSize } stroke='black' strokeWidth={ 1 } />
 
           /* actor name */
-          <text x={ width / 2} y={ height } style={ nameStyle }>{ name }</text>
+          <text x={ width / 2} y={ height * 0.95 } style={ nameStyle }>{ name }</text>
         </svg>
       </Draggable>
     </Selectable>

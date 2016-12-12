@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
-import { UML_COMPONENT_MOVE } from '../actions';
+import { umlComponentMove } from '../actions';
 
 class UseCaseDiagram extends Component {
   render() {
@@ -17,14 +17,11 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   onComponentMove: (id, x, y) => {
-    dispatch({
-      type: UML_COMPONENT_MOVE,
-      id, x, y
-    })
+    dispatch(umlComponentMove(id, x, y));
   }
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UseCaseDiagram)
+)(UseCaseDiagram);

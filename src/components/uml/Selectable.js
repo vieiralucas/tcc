@@ -16,8 +16,8 @@ const Selectable = (props: SelectableProps) => {
 
   if (isSelected) {
     return (
-      <g x={ x } y={ y } width={ width } height={ height * 1.1 }>
-        <rect x={ x } y={ y } width={ width } height={ height * 1.1 }
+      <g x={ x } y={ y } width={ width } height={ height }>
+        <rect x={ x } y={ y } width={ width } height={ height }
           fillOpacity={ 0 } stroke='aquamarine' strokeWidth={ 1.2 } />
         { props.children }
       </g>

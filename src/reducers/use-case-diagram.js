@@ -1,12 +1,14 @@
 // @flow
 
 import { UML_COMPONENT_MOVE } from '../actions';
+import type { Reducer } from 'redux';
 
 const mock = [
-  { id: 1, type: 'actor', name: 'lucas', x: 10, y: 10 }
+  { id: 1, type: 'actor', name: 'lucas', x: 10, y: 10 },
+  { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 20, y: 20 }
 ];
 
-const useCaseDiagram = (state: any = mock, action: any) => {
+const useCaseDiagram: Reducer = (state = mock, action) => {
   switch (action.type) {
   case UML_COMPONENT_MOVE:
     let pos = 0;

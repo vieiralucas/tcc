@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Actor from './uml/Actor';
+import UseCase from './uml/UseCase';
 
 type WheelEvent = {
   deltaY: number
@@ -33,10 +34,12 @@ class Canvas extends Component {
 
   renderComponents(scale: number) {
     const { components } = this.props;
-    const componentsJsx = components.map((component, i) => {
+    const componentsJsx = components.map(component => {
       switch(component.type) {
       case 'actor':
-        return this.renderActor(component, scale, i);
+        return this.renderActor(component, scale);
+      case 'use-case':
+        return this.renderUseCase(component, scale);
       default:
         throw new Error(`Unknown uml component: ${component.type}`);
       }
@@ -45,9 +48,14 @@ class Canvas extends Component {
     return componentsJsx;
   }
 
-  renderActor(actor: any, scale: number, key: number) {
+  renderActor(actor: any, scale: number) {
     const { id, name, x, y } = actor;
     return <Actor key={ id } id={ id } name={ name } x={ x } y={ y } onMove={ this.props.onComponentMove } scale={ scale } />
+  }
+
+  renderUseCase(useCase: any, scale: number) {
+    const { id, name, x, y } = useCase;
+    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={this.props.onComponentMove} scale={scale} />
   }
 
   render() {
