@@ -2,17 +2,7 @@
 
 import React from 'react';
 import BaseUML from './BaseUML';
-
-type ActorProps = {
-  id: number;
-  name: string;
-  x: number;
-  y: number;
-  isSelected: boolean;
-  onMove: (id: number, x: number, y: number) => void;
-  onSelect: (id: number) => void;
-  onUnselect: (id: number) => void;
-};
+import type { ActorProps } from '../../types';
 
 const Actor = (props: ActorProps) => {
   const { name, x, y } = props;
