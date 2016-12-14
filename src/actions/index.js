@@ -4,14 +4,3 @@ export const umlComponentMove = (id: number, x: number, y: number) => ({
   id, x, y
 });
 
-export const UML_COMPONENT_SELECTED = 'UML_COMPONENT_SELECTED';
-export const umlComponentSelected = (id: number) => ({
-  type: UML_COMPONENT_SELECTED,
-  id
-});
-
-export const UML_COMPONENT_UNSELECTED = 'UML_COMPONENT_UNSELECTED';
-export const umlComponentUnselected = (id: number) => ({
-  type: UML_COMPONENT_UNSELECTED,
-  id
-});

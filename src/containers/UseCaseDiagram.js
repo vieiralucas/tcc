@@ -3,38 +3,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
-import { umlComponentMove, umlComponentSelected, umlComponentUnselected } from '../actions';
+import { umlComponentMove } from '../actions';
 
 type UseCaseDiagramProps = {
   components: Array<any>;
-  selected: number;
-  onComponentMove: (id: number, x: number, y: number) => void;
-  onComponentSelected: (id: number) => void;
-  onComponentUnselected: (id: number) => void;
+  onMove: (id: number, x: number, y: number) => void;
 };
 
 const UseCaseDiagram = (props: UseCaseDiagramProps) => (
   <Canvas width={window.innerWidth} height={window.innerHeight}
-    components={props.components} onComponentMove={props.onComponentMove}
-    onComponentSelected={props.onComponentSelected}
-    onComponentUnselected={props.onComponentUnselected}
-    selected={props.selected} />
+    components={props.components} onMove={props.onMove} />
 );
 
-const mapStateToProps = ({useCaseDiagram}, ownProps) => ({
-  components: useCaseDiagram.components,
-  selected: useCaseDiagram.selectedId
+const mapStateToProps = ({ useCaseDiagram }, ownProps) => ({
+  components: useCaseDiagram.components
 });
 
 const mapDispatchToProps = dispatch => ({
-  onComponentMove: (id, x, y) => {
+  onMove: (id, x, y) => {
     dispatch(umlComponentMove(id, x, y));
-  },
-  onComponentSelected: id => {
-    dispatch(umlComponentSelected(id));
-  },
-  onComponentUnselected: id => {
-    dispatch(umlComponentUnselected(id));
   }
 });
 

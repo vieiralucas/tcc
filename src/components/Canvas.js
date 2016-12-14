@@ -5,36 +5,19 @@ import Actor from './uml/Actor';
 import UseCase from './uml/UseCase';
 
 type CanvasProps = {
-  width: number;
-  height: number;
   components: Array<any>;
-  onComponentMove: (id: number, x: number, y: number) => void;
-  onComponentSelected: (id: number) => void;
-  onComponentUnselected: (id: number) => void;
-  selected: number;
+  onMove: (id: number, x: number, y: number) => void;
 };
 
 const canvasStyle = {
   background: 'cornsilk'
 };
 
-const Canvas = (props: CanvasProps) => {
-  const renderActor = (actor: any) => {
-    const { id, name, x, y } = actor;
-    const isSelected = props.selected === actor.id;
-
-    return <Actor key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected}  onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
-  };
-
-  const renderUseCase = (useCase: any) => {
-    const { id, name, x, y } = useCase;
-    const isSelected = props.selected === useCase.id;
-
-    return <UseCase key={id} id={id} name={name} x={x} y={y} onMove={props.onComponentMove} isSelected={isSelected} onSelect={props.onComponentSelected} onUnselect={props.onComponentUnselected} />
-  };
+const Canvas = ({ components, onMove }: CanvasProps) => {
+  const renderActor = (actor: any) => <Actor key={actor.id} {...actor} onMove={onMove} />
+  const renderUseCase = (useCase: any) => <UseCase key={useCase.id} {...useCase} onMove={onMove} />
 
   const renderComponents = () => {
-    const { components } = props;
     const componentsJsx = components.map(component => {
       switch(component.type) {
       case 'actor':
@@ -50,12 +33,10 @@ const Canvas = (props: CanvasProps) => {
   };
 
 
-  const { width, height } = props;
-
   return (
-    <svg width={width} height={height} style={canvasStyle}>
+    <div style={canvasStyle}>
       { renderComponents() }
-    </svg>
+    </div>
   );
 };
 

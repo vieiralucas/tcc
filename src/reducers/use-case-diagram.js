@@ -1,9 +1,8 @@
 // @flow
 
 import { combineReducers } from 'redux';
-import type { Reducer } from 'redux';
 
-import { UML_COMPONENT_MOVE, UML_COMPONENT_SELECTED, UML_COMPONENT_UNSELECTED } from '../actions';
+import { UML_COMPONENT_MOVE } from '../actions';
 
 const mock = {
   components: [
@@ -12,7 +11,7 @@ const mock = {
   ]
 };
 
-const components: Reducer = (state = mock.components, action) => {
+const components = (state = mock.components, action) => {
   if (action.type === UML_COMPONENT_MOVE) {
     let pos = 0;
     const component = state.find((c, i) => {
@@ -29,19 +28,6 @@ const components: Reducer = (state = mock.components, action) => {
   return state;
 };
 
-const selectedId: Reducer = (state = null, action) => {
-  if (action.type === UML_COMPONENT_SELECTED) {
-    return action.id;
-  }
-
-  if (action.type === UML_COMPONENT_UNSELECTED) {
-    return null;
-  }
-
-  return state;
-};
-
 export default combineReducers({
-  components,
-  selectedId
+  components
 });
