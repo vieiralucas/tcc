@@ -8,8 +8,7 @@ const UseCase = (props: UseCaseProps) => {
   const { name } = props;
   const fontSize = 10;
   const width = 200;
-  const lines = name.match(/.{1,30}/g) || [];
-  const height = fontSize * 3 * lines.length;
+  const height = 70;
 
   const style = {
     fontSize: `${fontSize}px`,
@@ -20,7 +19,8 @@ const UseCase = (props: UseCaseProps) => {
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    width
+    width,
+    maxHeight: height
   };
 
   return (

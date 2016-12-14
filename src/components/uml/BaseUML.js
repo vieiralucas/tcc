@@ -31,11 +31,9 @@ const BaseUML = (props: BaseUMLProps) => {
   };
 
   return (
-    <div style={style}>
-      <Draggable onDrag={handleDrag}>
-        { props.children }
-      </Draggable>
-    </div>
+    <Draggable onDrag={handleDrag}>
+      { props.children }
+    </Draggable>
   );
 };
 

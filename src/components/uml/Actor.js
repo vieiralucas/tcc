@@ -61,7 +61,9 @@ const Actor = (props: ActorProps) => {
 
   return (
     <BaseUML { ...props } width={width} height={height}>
-      { actorSvg }
+      <div>
+        { actorSvg }
+      </div>
     </BaseUML>
   );
 };
