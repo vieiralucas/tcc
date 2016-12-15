@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 
-import { UML_COMPONENT_MOVE } from '../actions';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../actions';
 
 const mock = {
   components: [
@@ -12,20 +12,26 @@ const mock = {
 };
 
 const components = (state = mock.components, action) => {
-  if (action.type === UML_COMPONENT_MOVE) {
-    let pos = 0;
-    const component = state.find((c, i) => {
-      pos = i;
-      return c.id === action.id;
+  switch (action.type) {
+  case UML_COMPONENT_MOVE:
+    return state.map(s => {
+      if (s.id === action.id) {
+        return { ...s, x: action.x, y: action.y };
+      }
+
+      return s;
     });
+  case UML_COMPONENT_NAME_CHANGE:
+    return state.map(s => {
+      if (s.id === action.id) {
+        return { ...s, name: action.name };
+      }
 
-    if (component) {
-      const newComponent = { ...component, x: action.x, y: action.y };
-      return [...state.slice(0, pos), newComponent, ...state.slice(pos + 1)];
-    }
+      return s;
+    });
+  default:
+    return state;
   }
-
-  return state;
 };
 
 export default combineReducers({

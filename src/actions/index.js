@@ -4,3 +4,9 @@ export const umlComponentMove = (id: number, x: number, y: number) => ({
   id, x, y
 });
 
+export const UML_COMPONENT_NAME_CHANGE = 'UML_COMPONENT_NAME_CHANGE';
+export const umlComponentNameChange = (id: number, name: string) => ({
+  type: UML_COMPONENT_NAME_CHANGE,
+  id, name
+});
+

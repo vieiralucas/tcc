@@ -24,12 +24,6 @@ const BaseUML = (props: BaseUMLProps) => {
   const propsWithoutChildren = { ...props };
   delete propsWithoutChildren.children;
 
-  const style = {
-    position: 'absolute',
-    left: props.x,
-    top: props.y
-  };
-
   return (
     <Draggable onDrag={handleDrag}>
       { props.children }
