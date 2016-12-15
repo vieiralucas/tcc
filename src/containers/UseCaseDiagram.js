@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(umlComponentMove(id, x, y));
   },
   onNameChange: (id, name) => {
-    console.log(id, name);
     dispatch(umlComponentNameChange(id, name));
   }
 });

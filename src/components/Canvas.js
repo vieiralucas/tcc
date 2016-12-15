@@ -15,7 +15,7 @@ const canvasStyle = {
 };
 
 const Canvas = ({ components, onMove, onNameChange }: CanvasProps) => {
-  const renderActor = (actor: any) => <Actor key={actor.id} {...actor} onMove={onMove} />
+  const renderActor = (actor: any) => <Actor key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
   const renderUseCase = (useCase: any) => <UseCase key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
 
   const renderComponents = () => {
