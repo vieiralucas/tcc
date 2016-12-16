@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
 import type { ActorProps } from '../../types';
 
-class Actor extends Component {
+class ActorItem extends Component {
   props: ActorProps;
   state: {
     isEditing: boolean;
@@ -112,4 +112,4 @@ class Actor extends Component {
   }
 }
 
-export default Actor;
+export default ActorItem;

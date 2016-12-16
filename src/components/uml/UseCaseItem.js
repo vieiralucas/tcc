@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
 import type { UseCaseProps } from '../../types';
 
-class UseCase extends Component {
+class UseCaseItem extends Component {
   props: UseCaseProps;
   state: {
     isEditing: boolean;
@@ -73,4 +73,4 @@ class UseCase extends Component {
   }
 };
 
-export default UseCase;
+export default UseCaseItem;
