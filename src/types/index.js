@@ -1,49 +1,65 @@
 // @flow
 
-import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
-
 type UMLComponentProps = {
   id: number;
   name: string;
   x: number;
   y: number;
-  onMove: (id: number, x: number, y: number) => void;
+  type: string;
+  onMove: (id: number, x: number, y: number, componentType: string) => void;
   onNameChange: (id: number, name: string) => void;
 };
 
-export type ActorProps = UMLComponentProps
-export type UseCaseProps = UMLComponentProps
+export type ActorItemProps = UMLComponentProps
+export type UseCaseItemProps = UMLComponentProps
+export type AssociationItemProps = UMLComponentProps & {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
 
 export type Id = number;
 
 export type Name = string;
 
-export type UMLComponent = {
-  id: Id,
-  type: string,
-  name: Name,
-  x: number,
-  y: number
+export type Actor = {
+  id: Id;
+  type: string;
+  name: Name;
+  x: number;
+  y: number;
+}
+
+export type UseCase = {
+  id: Id;
+  type: string;
+  name: Name;
+  x: number;
+  y: number;
 };
 
-export type Actor = UMLComponent;
-export type UseCase = UMLComponent;
+export type Association = {
+  id: Id;
+  type: string;
+  name: Name;
+  actorId: Id;
+  useCaseId: Id;
+};
 
-export type UMLComponents = Array<UMLComponent>;
+export type UMLComponents = {
+  actors: Actor[];
+  useCases: UseCase[];
+  associations: Association[];
+};
 
 export type UseCaseDiagramState = {
-  components: UMLComponents
+  components: UMLComponents;
 };
 
 export type State = {
-  useCaseDiagram: UseCaseDiagramState
+  useCaseDiagram: UseCaseDiagramState;
 };
 
-export type Action =
-    { type: 'UML_COMPONENT_NAME_CHANGE', id: Id, name: Name }
-  | { type: 'UML_COMPONENT_MOVE', id: Id, x: number, y: number }
-  ;
+export type Action = { type: string };
 
-export type Store = ReduxStore<State, Action>;
-
-export type Dispatch = ReduxDispatch<Action>;

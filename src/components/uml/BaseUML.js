@@ -10,7 +10,8 @@ type BaseUMLProps = {
   y: number;
   width: number;
   height: number;
-  onMove: (id: number, x: number, y: number) => void;
+  type: string;
+  onMove: (id: number, x: number, y: number, componentType: string) => void;
   children?: Element<any>;
 };
 
@@ -18,15 +19,20 @@ const BaseUML = (props: BaseUMLProps) => {
   const handleDrag = (e: Event, data: DraggableData) => {
     const { id, x, y } = props;
 
-    props.onMove(id, x + data.deltaX, y + data.deltaY);
+    props.onMove(id, x + data.deltaX, y + data.deltaY, props.type);
   };
 
-  const propsWithoutChildren = { ...props };
-  delete propsWithoutChildren.children;
+  const style = {
+    position: 'absolute',
+    left: props.x,
+    top: props.y
+  };
 
   return (
     <Draggable onDrag={handleDrag}>
-      { props.children }
+      <div style={style}>
+        { props.children }
+      </div>
     </Draggable>
   );
 };

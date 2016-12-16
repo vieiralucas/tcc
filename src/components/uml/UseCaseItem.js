@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
-import type { UseCaseProps } from '../../types';
+import type { UseCaseItemProps } from '../../types';
 
 class UseCaseItem extends Component {
-  props: UseCaseProps;
+  props: UseCaseItemProps;
   state: {
     isEditing: boolean;
   };

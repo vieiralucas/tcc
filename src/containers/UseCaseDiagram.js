@@ -4,10 +4,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
 import { umlComponentMove, umlComponentNameChange } from '../actions';
+import type { UMLComponents } from '../types';
 
 type UseCaseDiagramProps = {
-  components: Array<any>;
-  onMove: (id: number, x: number, y: number) => void;
+  components: UMLComponents;
+  onMove: (id: number, x: number, y: number, componentType: string) => void;
   onNameChange: (id: number, name: string) => void;
 };
 
@@ -20,8 +21,8 @@ const mapStateToProps = ({ useCaseDiagram }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onMove: (id, x, y) => {
-    dispatch(umlComponentMove(id, x, y));
+  onMove: (id, x, y, componentType) => {
+    dispatch(umlComponentMove(id, x, y, componentType));
   },
   onNameChange: (id, name) => {
     dispatch(umlComponentNameChange(id, name));

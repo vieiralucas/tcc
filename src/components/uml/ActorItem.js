@@ -3,16 +3,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
-import type { ActorProps } from '../../types';
+import type { ActorItemProps } from '../../types';
 
 class ActorItem extends Component {
-  props: ActorProps;
   state: {
     isEditing: boolean;
   };
 
-  constructor() {
-    super();
+  constructor(props: ActorItemProps) {
+    super(props);
 
     this.state = {
       isEditing: false
