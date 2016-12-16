@@ -1,16 +1,8 @@
-// @flow
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import type { AssociationItemProps } from '../../types';
-
 
 class AssociationItem extends Component {
-  state: {
-    isEditing: boolean;
-  };
-
-  constructor(props: AssociationItemProps) {
+  constructor(props) {
     super(props);
   }
 

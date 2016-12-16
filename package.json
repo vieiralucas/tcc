@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "flow-bin": "^0.37.1",
     "nodemon": "^1.11.0",
     "react-scripts": "0.8.3",
     "redux-devtools": "^3.3.1",
@@ -26,8 +25,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "flow:watch": "nodemon --exec npm run flow"
+    "eject": "react-scripts eject"
   }
 }

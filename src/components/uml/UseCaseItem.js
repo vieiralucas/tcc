@@ -1,18 +1,10 @@
-// @flow
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
-import type { UseCaseItemProps } from '../../types';
 
 class UseCaseItem extends Component {
-  props: UseCaseItemProps;
-  state: {
-    isEditing: boolean;
-  };
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isEditing: false

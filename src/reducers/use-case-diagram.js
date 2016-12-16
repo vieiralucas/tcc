@@ -1,15 +1,11 @@
-// @flow
-
 import { combineReducers } from 'redux';
 
 import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../actions';
 
-import type { UMLComponents, Actor, UseCase, Association } from '../types';
+const actor1 = { id: 1, type: 'actor', name: 'lucas', x: 300, y: 10 };
+const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 20, y: 20 };
 
-const actor1: Actor = { id: 1, type: 'actor', name: 'lucas', x: 300, y: 10 };
-const useCase1: UseCase = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 20, y: 20 };
-
-const association1: Association = {
+const association1 = {
   id: 3,
   type: 'association',
   name: 'lucas - cadastrar usuário',
@@ -17,13 +13,13 @@ const association1: Association = {
   actorId: 1
 };
 
-const hardCodedComponents: UMLComponents = {
+const hardCodedComponents = {
   actors: [actor1],
   useCases: [useCase1],
   associations: [association1]
 };
 
-const components = (components: UMLComponents = hardCodedComponents, action: Object): UMLComponents => {
+const components = (components = hardCodedComponents, action) => {
   const move = components => components.map(c => {
     if (c.id === action.id) {
       return { ...c, x: action.x, y: action.y };

@@ -1,18 +1,6 @@
-// @flow
+import React, { Element } from 'react';
 
-import React, {Element} from 'react';
-
-type SelectableProps = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  isSelected: boolean;
-  onSelectedToggle: (isSelected: boolean) => void;
-  children?: Element<any>;
-};
-
-const Selectable = (props: SelectableProps) => {
+const Selectable = props => {
   const { x, y, width, height, isSelected, onSelectedToggle } = props;
   const strokeWidth = isSelected ? 1.2 : 0;
 

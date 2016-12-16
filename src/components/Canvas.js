@@ -1,25 +1,16 @@
-// @flow
-
 import React from 'react';
 import ActorItem from './uml/ActorItem';
 import UseCaseItem from './uml/UseCaseItem';
 import AssociationItem from './uml/AssociationItem';
-import type { Actor, UseCase, Association, UMLComponents } from '../types';
-
-type CanvasProps = {
-  components: UMLComponents;
-  onMove: (id: number, x: number, y: number, componentType: string) => void;
-  onNameChange: (id: number, name: string) => void;
-};
 
 const canvasStyle = {
   background: 'cornsilk'
 };
 
-const Canvas = ({ components, onMove, onNameChange }: CanvasProps) => {
-  const renderActor = (actor: Actor) => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
-  const renderUseCase = (useCase: UseCase) => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
-  const renderAssociation = (association: Association) => {
+const Canvas = ({ components, onMove, onNameChange }) => {
+  const renderActor = (actor) => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
+  const renderUseCase = (useCase) => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
+  const renderAssociation = (association) => {
     const actor = components.actors.find(a => a.id === association.actorId);
     const useCase = components.useCases.find(u => u.id === association.useCaseId);
 

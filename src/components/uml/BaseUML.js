@@ -1,22 +1,8 @@
-// @flow
-
-import React, { Element } from 'react';
+import React from 'react';
 import Draggable from 'react-draggable';
-import type {DraggableData} from 'react-draggable';
 
-type BaseUMLProps = {
-  id: number;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  type: string;
-  onMove: (id: number, x: number, y: number, componentType: string) => void;
-  children?: Element<any>;
-};
-
-const BaseUML = (props: BaseUMLProps) => {
-  const handleDrag = (e: Event, data: DraggableData) => {
+const BaseUML = props => {
+  const handleDrag = (e, data) => {
     const { id, x, y } = props;
 
     props.onMove(id, x + data.deltaX, y + data.deltaY, props.type);

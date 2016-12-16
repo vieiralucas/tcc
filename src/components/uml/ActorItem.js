@@ -1,16 +1,9 @@
-// @flow
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import BaseUML from './BaseUML';
-import type { ActorItemProps } from '../../types';
 
 class ActorItem extends Component {
-  state: {
-    isEditing: boolean;
-  };
-
-  constructor(props: ActorItemProps) {
+  constructor(props) {
     super(props);
 
     this.state = {

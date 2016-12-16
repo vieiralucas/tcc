@@ -1,18 +1,9 @@
-// @flow
-
 import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
 import { umlComponentMove, umlComponentNameChange } from '../actions';
-import type { UMLComponents } from '../types';
 
-type UseCaseDiagramProps = {
-  components: UMLComponents;
-  onMove: (id: number, x: number, y: number, componentType: string) => void;
-  onNameChange: (id: number, name: string) => void;
-};
-
-const UseCaseDiagram = (props: UseCaseDiagramProps) => (
+const UseCaseDiagram = (props) => (
   <Canvas width={window.innerWidth} height={window.innerHeight} {...props} />
 );
 
