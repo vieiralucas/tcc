@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom';
 class AssociationItem extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isEditing: false
+    };
   }
 
   componentDidUpdate() {
@@ -13,11 +17,17 @@ class AssociationItem extends Component {
   }
 
   render() {
-    const { name, x1, x2, y1, y2 } = this.props;
+    const actorCord = this.props.actorCord;
+    const useCaseCord = this.props.useCaseCord;
 
-    const d = `M ${x1} ${y1} L ${x2} ${y2}`;
+    const d = `M ${actorCord.x} ${actorCord.y} L ${useCaseCord.x} ${useCaseCord.y}`;
+    const style = {
+      width: '100%',
+      height: '100%'
+    };
+
     return (
-      <svg>
+      <svg style={style}>
         <path d={d} strokeWidth='1' stroke='black' />
       </svg>
     );

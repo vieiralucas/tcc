@@ -9,8 +9,16 @@ const association1 = {
   id: 3,
   type: 'association',
   name: 'lucas - cadastrar usuário',
-  useCaseId: 2,
-  actorId: 1
+  useCaseCord: {
+    id: 2,
+    x: 300,
+    y: 10
+  },
+  actorCord: {
+    id: 1,
+    x: 20,
+    y: 20
+  }
 };
 
 const hardCodedComponents = {
@@ -19,60 +27,78 @@ const hardCodedComponents = {
   associations: [association1]
 };
 
-const components = (components = hardCodedComponents, action) => {
-  const move = components => components.map(c => {
-    if (c.id === action.id) {
-      return { ...c, x: action.x, y: action.y };
-    }
+const moveComponents = (components, action) => components.map(c => {
+  if (c.id === action.id) {
+    return { ...c, x: action.x, y: action.y };
+  }
 
-    return c;
-  });
+  return c;
+});
 
-  const changeName = components => components.map(c => {
-    if (c.id === action.id) {
-      return { ...c, name: action.name };
-    }
+const changeComponentsName = (components, action) => components.map(c => {
+  if (c.id === action.id) {
+    return { ...c, name: action.name };
+  }
 
-    return c;
-  });
+  return c;
+});
 
+const actors = (actors = hardCodedComponents.actors, action) => {
   switch (action.type) {
   case UML_COMPONENT_MOVE:
-    switch (action.componentType) {
-    case 'actor':
-      components.actors = move(components.actors)
-      break;
-    case 'use-case':
-      components.useCases = move(components.useCases)
-      break;
-    case 'association':
-      components.associations = move(components.associations)
-      break;
-    default:
-      throw new Error(`Unexpected type of uml component at componentMoveAction: ${action.type}`);
-    }
-
-    return components;
+    return moveComponents(actors, action);
   case UML_COMPONENT_NAME_CHANGE:
-    switch (action.componentType) {
-    case 'actor':
-      components.actors = changeName(components.actors)
-      break;
-    case 'use-case':
-      components.useCases = changeName(components.useCases)
-      break;
-    case 'association':
-      components.associations = changeName(components.associations)
-      break;
-    default:
-      throw new Error(`Unexpected type of uml component at componentMoveAction: ${action.type}`);
-    }
-
-    return components;
+    return changeComponentsName(actors, action);
   default:
-    return components;
+    return actors;
   }
 };
+
+const useCases = (useCases = hardCodedComponents.useCases, action) => {
+  switch (action.type) {
+  case UML_COMPONENT_MOVE:
+    return moveComponents(useCases, action);
+  case UML_COMPONENT_NAME_CHANGE:
+    return changeComponentsName(useCases, action);
+  default:
+    return useCases;
+  }
+};
+
+const associations = (associations = hardCodedComponents.associations, action) => {
+  switch (action.type) {
+  case UML_COMPONENT_MOVE:
+    if (action.componentType === 'actor') {
+      return associations.map(a => {
+        if (a.actorCord.id === action.id) {
+          return { ...a, actorCord: { ...a.actorCord, x: action.x, y: action.y }};
+        }
+
+        return a;
+      });
+    }
+
+    if (action.componentType === 'use-case') {
+      return associations.map(a => {
+        if (a.useCaseCord.id === action.id) {
+          return { ...a, useCaseCord: { ...a.useCaseCord, x: action.x, y: action.y }};
+        }
+
+        return a;
+      });
+    }
+
+    return associations;
+  default:
+    return associations;
+  }
+};
+
+const components = combineReducers({
+  actors,
+  useCases,
+  associations
+});
 
 export default combineReducers({
   components
