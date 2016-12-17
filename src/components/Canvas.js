@@ -8,15 +8,9 @@ const canvasStyle = {
 };
 
 const Canvas = ({ components, onMove, onNameChange }) => {
-  console.log(components);
-  const renderActor = (actor) => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
-  const renderUseCase = (useCase) => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
-  const renderAssociation = (association) => {
-    const actor = components.actors.find(a => a.id === association.actorId);
-    const useCase = components.useCases.find(u => u.id === association.useCaseId);
-
-    return <AssociationItem key={association.id} {...association} />;
-  }
+  const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
+  const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
+  const renderAssociation = association => <AssociationItem key={association.id} {...association} />;
 
   const renderComponents = () => {
     const actorsJSx = components.actors.map(renderActor);
