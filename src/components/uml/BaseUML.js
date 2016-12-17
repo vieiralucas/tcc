@@ -1,5 +1,12 @@
 import React from 'react';
-import Draggable from 'react-draggable';
+import { DragSource } from 'react-dnd';
+
+const boxSource = {
+  beginDrag(props) {
+    const { id, x, y } = props;
+    return { id, x, y };
+  }
+};
 
 const BaseUML = props => {
   const handleDrag = (e, data) => {
@@ -14,13 +21,16 @@ const BaseUML = props => {
     top: props.y
   };
 
-  return (
-    <Draggable onDrag={handleDrag}>
-      <div style={style}>
-        { props.children }
-      </div>
-    </Draggable>
+  return props.connectDragSource(
+    <div style={style}>
+      { props.children }
+    </div>
   );
 };
 
-export default BaseUML;
+const collect = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+});
+
+export default DragSource('UML_COMPONENTS', boxSource, collect)(BaseUML);

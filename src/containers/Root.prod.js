@@ -1,16 +1,21 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import routes from '../routes'
 import { Router } from 'react-router'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-const Root = ({ store, history }) => (
-  <Provider store={store}>
-    <Router history={history} routes={routes} />
-  </Provider>
-)
+import routes from '../routes'
 
-Root.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+class Root extends Component {
+  render() {
+    const { store, history } = this.props;
+
+    return (
+      <Provider store={store}>
+        <Router history={history} routes={routes} />
+      </Provider>
+    );
+  }
 }
-export default Root
+
+export default DragDropContext(HTML5Backend)(Root);
