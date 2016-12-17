@@ -1,4 +1,5 @@
-import { UML_COMPONENT_MOVE } from '../../actions';
+import _ from 'lodash';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE } from '../../actions';
 
 const association1 = { id: 3,
   type: 'association',
@@ -39,6 +40,17 @@ const associations = (associations = [association1], action) => {
     }
 
     return associations;
+  case UML_COMPONENT_DELETE:
+    if (!action.componentType === 'association') {
+      return associations;
+    }
+
+    const index = _.findIndex(associations, a => a.id === action.id);
+    if (index !== -1) {
+      return [...associations.slice(0, index), ...associations.slice(index + 1)];
+    } else {
+      return associations;
+    }
   default:
     return associations;
   }

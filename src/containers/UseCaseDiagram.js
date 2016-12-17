@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
-import { umlComponentMove, umlComponentNameChange } from '../actions';
+import { umlComponentMove, umlComponentNameChange, umlComponentDelete } from '../actions';
 
 const UseCaseDiagram = (props) => (
   <Canvas width={window.innerWidth} height={window.innerHeight} {...props} />
@@ -14,6 +14,9 @@ const mapStateToProps = ({ useCaseDiagram }, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   onMove: (id, x, y, componentType) => {
     dispatch(umlComponentMove(id, x, y, componentType));
+  },
+  deleteComponent: (id, componentType) => {
+    dispatch(umlComponentDelete(id, componentType));
   },
   onNameChange: (id, name) => {
     dispatch(umlComponentNameChange(id, name));

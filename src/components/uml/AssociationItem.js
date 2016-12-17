@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 class AssociationItem extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isEditing: false
+      isSelected: false
     };
   }
 
-  componentDidUpdate() {
-    if (this.state.isEditing) {
-      ReactDOM.findDOMNode(this.refs.nameInput).focus();
+  select() {
+    this.setState({
+      isSelected: true
+    });
+  }
+
+  unselect() {
+    this.setState({
+      isSelected: false
+    });
+  }
+
+  onKeyDown({ keyCode }) {
+    console.log(keyCode);
+    if (!this.state.isSelected) {
+      return;
+    }
+
+    if (keyCode === 8) {
+      this.props.deleteComponent(this.props.id, this.props.type);
     }
   }
 
@@ -25,10 +41,17 @@ class AssociationItem extends Component {
       width: '100%',
       height: '100%'
     };
+    const strokeColor = this.state.isSelected ? 'red' : 'black';
+    const pathStyle = {
+      cursor: 'pointer',
+      outline: 'none'
+    };
 
     return (
-      <svg style={style}>
-        <path d={d} strokeWidth='1' stroke='black' />
+      <svg style={style} onKeyDown={this.onKeyDown.bind(this)}>
+        <path tabIndex='0' d={d} strokeWidth='1' stroke={strokeColor}
+          onClick={this.select.bind(this)} onBlur={this.unselect.bind(this)}
+          style={pathStyle} />
       </svg>
     );
   }

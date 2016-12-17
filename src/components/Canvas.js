@@ -28,11 +28,11 @@ class Canvas extends Component {
   }
 
   render() {
-    const { components, onMove, onNameChange, connectDropTarget } = this.props;
+    const { components, onMove, onNameChange, deleteComponent, connectDropTarget } = this.props;
 
     const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} />
     const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} />
-    const renderAssociation = association => <AssociationItem key={association.id} {...association} />;
+    const renderAssociation = association => <AssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />;
 
     const renderComponents = () => {
       const actorsJSx = components.actors.map(renderActor);

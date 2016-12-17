@@ -10,3 +10,8 @@ export const umlComponentNameChange = (id, name): Action => ({
   id, name
 });
 
+export const UML_COMPONENT_DELETE = 'UML_COMPONENT_DELETE';
+export const umlComponentDelete = (id, componentType): Action => ({
+  type: UML_COMPONENT_DELETE,
+  id, componentType
+});
