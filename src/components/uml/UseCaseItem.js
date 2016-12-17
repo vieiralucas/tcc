@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import BaseUML from './BaseUML';
 
 class UseCaseItem extends Component {
@@ -23,6 +24,10 @@ class UseCaseItem extends Component {
 
   leaveEdit() {
     this.setState({ isEditing: false });
+  }
+
+  umlComponentLink() {
+    this.props.umlComponentLink(_.pick(this.props, 'id', 'type', 'name', 'x', 'y'));
   }
 
   render() {
@@ -57,7 +62,7 @@ class UseCaseItem extends Component {
 
     return (
       <BaseUML { ...this.props } width={width} height={height}>
-        <div style={style} onDoubleClick={this.enterEdit.bind(this)}>
+        <div style={style} onDoubleClick={this.enterEdit.bind(this)} onClick={this.umlComponentLink.bind(this)}>
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }
         </div>

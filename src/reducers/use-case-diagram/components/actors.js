@@ -1,4 +1,4 @@
-import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../../actions';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../../../actions';
 
 const actor1 = { id: 1, type: 'actor', name: 'lucas', x: 400, y: 100 };
 

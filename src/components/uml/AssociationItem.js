@@ -33,10 +33,10 @@ class AssociationItem extends Component {
   }
 
   render() {
-    const actorCord = this.props.actorCord;
-    const useCaseCord = this.props.useCaseCord;
+    const actor = this.props.actor;
+    const useCase = this.props.useCase;
 
-    const d = `M ${actorCord.x} ${actorCord.y} L ${useCaseCord.x} ${useCaseCord.y}`;
+    const d = `M ${actor.x} ${actor.y} L ${useCase.x} ${useCase.y}`;
     const style = {
       width: '100%',
       height: '100%'

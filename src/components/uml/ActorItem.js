@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import BaseUML from './BaseUML';
 
 class ActorItem extends Component {
@@ -23,6 +24,10 @@ class ActorItem extends Component {
 
   leaveEdit() {
     this.setState({ isEditing: false });
+  }
+
+  umlComponentLink() {
+    this.props.umlComponentLink(_.pick(this.props, 'id', 'type', 'name', 'x', 'y'));
   }
 
   render() {
@@ -98,7 +103,7 @@ class ActorItem extends Component {
 
     return (
       <BaseUML { ...this.props } width={width} height={height}>
-        <div onDoubleClick={this.enterEdit.bind(this)} style={style}>
+        <div onDoubleClick={this.enterEdit.bind(this)} style={style} onClick={this.umlComponentLink.bind(this)}>
           { actorSvg }
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }

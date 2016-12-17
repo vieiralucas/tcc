@@ -1,15 +1,14 @@
 import _ from 'lodash';
-import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE } from '../../actions';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, UML_COMPONENT_ADD_ASSOCIATION } from '../../../actions';
 
 const association1 = { id: 3,
   type: 'association',
-  name: 'lucas - cadastrar usuário',
-  useCaseCord: {
+  useCase: {
     id: 2,
     x: 200,
     y: 100
   },
-  actorCord: {
+  actor: {
     id: 1,
     x: 400,
     y: 100
@@ -21,8 +20,8 @@ const associations = (associations = [association1], action) => {
   case UML_COMPONENT_MOVE:
     if (action.componentType === 'actor') {
       return associations.map(a => {
-        if (a.actorCord.id === action.id) {
-          return { ...a, actorCord: { ...a.actorCord, x: action.x, y: action.y }};
+        if (a.actor.id === action.id) {
+          return { ...a, actor: { ...a.actor, x: action.x, y: action.y }};
         }
 
         return a;
@@ -31,8 +30,8 @@ const associations = (associations = [association1], action) => {
 
     if (action.componentType === 'use-case') {
       return associations.map(a => {
-        if (a.useCaseCord.id === action.id) {
-          return { ...a, useCaseCord: { ...a.useCaseCord, x: action.x, y: action.y }};
+        if (a.useCase.id === action.id) {
+          return { ...a, useCase: { ...a.useCase, x: action.x, y: action.y }};
         }
 
         return a;
@@ -51,6 +50,13 @@ const associations = (associations = [association1], action) => {
     } else {
       return associations;
     }
+  case UML_COMPONENT_ADD_ASSOCIATION:
+    return associations.concat([{
+      type: 'association',
+      id: '1283712983721831',
+      useCase: action.comp1.type === 'use-case' ? action.comp1 : action.comp2,
+      actor: action.comp1.type === 'actor' ? action.comp1 : action.comp2
+    }]);
   default:
     return associations;
   }

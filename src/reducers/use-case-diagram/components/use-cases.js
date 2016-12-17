@@ -1,4 +1,4 @@
-import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../../actions';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../../../actions';
 
 const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 200, y: 100 };
 
