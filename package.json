@@ -11,6 +11,7 @@
     "redux-logger": "^2.7.4"
   },
   "dependencies": {
+    "bulma": "^0.2.3",
     "lodash": "^4.17.2",
     "react": "^15.4.1",
     "react-dnd": "^2.1.4",

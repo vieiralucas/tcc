@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
+import Toolbox from '../components/Toolbox';
 import { umlComponentMove, umlComponentNameChange, umlComponentDelete, umlComponentLink } from '../actions';
 
 const UseCaseDiagram = (props) => (
-  <Canvas width={window.innerWidth} height={window.innerHeight} {...props} />
+  <div className='tile is-ancestor is-full-height'>
+    <Toolbox />
+    <Canvas {...props} />
+  </div>
 );
 
 const mapStateToProps = ({ useCaseDiagram }, ownProps) => ({

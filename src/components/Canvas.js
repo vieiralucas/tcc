@@ -5,9 +5,6 @@ import UseCaseItem from './uml/UseCaseItem';
 import AssociationItem from './uml/AssociationItem';
 
 const styles = {
-  width: 1200,
-  height: 800,
-  border: '1px solid black',
   position: 'relative'
 };
 
@@ -45,7 +42,7 @@ class Canvas extends Component {
     };
 
     return connectDropTarget(
-      <div style={styles}>
+      <div className='tile is-warning' style={styles}>
         { renderComponents() }
       </div>
     );
