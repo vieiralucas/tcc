@@ -42,7 +42,8 @@ class UseCaseItem extends Component {
       wordWrap: 'break-word',
       width,
       minHeight: 35,
-      maxHeight: height
+      maxHeight: height,
+      background: 'white'
     };
     const inputStyle = {
       margin: '10px'

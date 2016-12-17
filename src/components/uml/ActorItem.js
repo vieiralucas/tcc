@@ -74,6 +74,10 @@ class ActorItem extends Component {
         /* actor name */
       </svg>
     );
+    const style = {
+      background: 'white',
+      borderRadius: '100%'
+    };
     const inputStyle = {
       display: 'block',
       height: fontSize + 5,
@@ -94,7 +98,7 @@ class ActorItem extends Component {
 
     return (
       <BaseUML { ...this.props } width={width} height={height}>
-        <div onDoubleClick={this.enterEdit.bind(this)}>
+        <div onDoubleClick={this.enterEdit.bind(this)} style={style}>
           { actorSvg }
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }

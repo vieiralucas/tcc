@@ -11,7 +11,7 @@ const styles = {
   position: 'relative'
 };
 
-const boxTarget = {
+const umlComponentTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
     const delta = monitor.getDifferenceFromInitialOffset();
@@ -56,4 +56,4 @@ const collect = connect => ({
   connectDropTarget: connect.dropTarget()
 });
 
-export default DropTarget('UML_COMPONENTS', boxTarget, collect)(Canvas);
+export default DropTarget('UML_COMPONENTS', umlComponentTarget, collect)(Canvas);

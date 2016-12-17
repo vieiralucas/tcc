@@ -1,24 +1,18 @@
 import React from 'react';
 import { DragSource } from 'react-dnd';
 
-const boxSource = {
+const umlComponentSource = {
   beginDrag(props) {
-    const { id, x, y } = props;
-    return { id, x, y };
+    const { id, x, y, type } = props;
+    return { id, x, y, type };
   }
 };
 
 const BaseUML = props => {
-  const handleDrag = (e, data) => {
-    const { id, x, y } = props;
-
-    props.onMove(id, x + data.deltaX, y + data.deltaY, props.type);
-  };
-
   const style = {
     position: 'absolute',
-    left: props.x,
-    top: props.y
+    left: props.x - props.width / 2,
+    top: props.y - props.height / 2
   };
 
   return props.connectDragSource(
@@ -33,4 +27,4 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging()
 });
 
-export default DragSource('UML_COMPONENTS', boxSource, collect)(BaseUML);
+export default DragSource('UML_COMPONENTS', umlComponentSource, collect)(BaseUML);
