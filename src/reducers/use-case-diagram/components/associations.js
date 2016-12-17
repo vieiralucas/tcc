@@ -1,7 +1,9 @@
 import _ from 'lodash';
+import uuid from 'uuid';
 import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, UML_COMPONENT_ADD_ASSOCIATION } from '../../../actions';
 
-const association1 = { id: 3,
+const association1 = {
+  id: 3,
   type: 'association',
   useCase: {
     id: 2,
@@ -14,6 +16,9 @@ const association1 = { id: 3,
     y: 100
   }
 };
+
+const associationExists = (associations, actorId, useCaseId) =>
+  associations.some(a => a.actor.id === actorId && a.useCase.id === useCaseId);
 
 const associations = (associations = [association1], action) => {
   switch (action.type) {
@@ -51,11 +56,17 @@ const associations = (associations = [association1], action) => {
       return associations;
     }
   case UML_COMPONENT_ADD_ASSOCIATION:
+    const useCase = action.comp1.type === 'use-case' ? action.comp1 : action.comp2;
+    const actor = action.comp1.type === 'actor' ? action.comp1 : action.comp2;
+
+    if (associationExists(associations, actor.id, useCase.id)) {
+      return associations;
+    }
+
     return associations.concat([{
       type: 'association',
-      id: '1283712983721831',
-      useCase: action.comp1.type === 'use-case' ? action.comp1 : action.comp2,
-      actor: action.comp1.type === 'actor' ? action.comp1 : action.comp2
+      id: uuid.v1(),
+      useCase, actor
     }]);
   default:
     return associations;
