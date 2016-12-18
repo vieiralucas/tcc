@@ -19,14 +19,8 @@ class ToolboxItem extends Component {
       display: props.isDragging ? 'none' : ''
     };
 
-    let className = 'button tile is-child box';
-
-    if (props.isSelected) {
-      className += ' is-active';
-    }
-
     return props.connectDragSource(
-      <button className={className} onMouseDown={() => props.onClick(props.type)}>
+      <button className='button tile is-child box' onMouseDown={() => props.onClick(props.type)}>
         { props.connectDragPreview(<div style={previewStyle}>{ props.children }</div>) }
         <h1 className='title'>{ props.title }</h1>
       </button>

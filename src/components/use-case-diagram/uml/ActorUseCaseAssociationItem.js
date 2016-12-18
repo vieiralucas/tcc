@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AssociationItem extends Component {
+class ActorUseCaseAssociationItem extends Component {
   constructor(props) {
     super(props);
 
@@ -58,4 +58,4 @@ class AssociationItem extends Component {
   }
 }
 
-export default AssociationItem;
+export default ActorUseCaseAssociationItem;

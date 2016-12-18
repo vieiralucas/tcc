@@ -16,6 +16,13 @@ export const umlComponentDelete = (id, componentType) => ({
   id, componentType
 });
 
+export const ADD_USE_CASE_ASSOCIATION = 'ADD_USE_CASE_ASSOCIATION';
+export const addUseCaseAssociation = (comp1, comp2) => ({
+  type: ADD_USE_CASE_ASSOCIATION,
+  useCase1: comp1,
+  useCase2: comp2
+});
+
 export const UML_COMPONENT_ADD_ASSOCIATION = 'UML_COMPONENT_ADD_ASSOCIATION';
 export const umlComponentAddAssociation = (comp1, comp2) => dispatch => {
   const types = [comp1.type, comp2.type].sort();
@@ -24,6 +31,11 @@ export const umlComponentAddAssociation = (comp1, comp2) => dispatch => {
       type: UML_COMPONENT_ADD_ASSOCIATION,
       comp1, comp2
     });
+    return;
+  }
+
+  if (types[0] === 'use-case' && types[1] === 'use-case') {
+    dispatch(addUseCaseAssociation(comp1, comp2));
   }
 };
 

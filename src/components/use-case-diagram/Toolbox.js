@@ -3,8 +3,6 @@ import ActorSVG from './uml/ActorSVG';
 import ToolboxItem from './toolbox/ToolboxItem';
 
 const Toolbox = props => {
-  const isSelected = type => props.toolbox.selected === type;
-
   const actorStyle = {
     margin: 'auto'
   };
@@ -22,12 +20,10 @@ const Toolbox = props => {
 
   return (
     <div className='container toolbox is-fluid tile is-parent is-vertical is-2'>
-      <ToolboxItem title='Actor' type='actor' onClick={props.onClick}
-        isSelected={isSelected('actor')}>
+      <ToolboxItem title='Actor' type='actor' onClick={props.onClick}>
         <ActorSVG width={100} style={actorStyle}/>
       </ToolboxItem>
-      <ToolboxItem title='Use Case' type='use-case' onClick={props.onClick}
-        isSelected={isSelected('use-case')}>
+      <ToolboxItem title='Use Case' type='use-case' onClick={props.onClick}>
         <div style={useCaseStyle}>
           <p>Use Case Name</p>
         </div>

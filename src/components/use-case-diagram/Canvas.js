@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import ActorItem from './uml/ActorItem';
 import UseCaseItem from './uml/UseCaseItem';
-import AssociationItem from './uml/AssociationItem';
+import ActorUseCaseAssociationItem from './uml/ActorUseCaseAssociationItem';
+import UseCaseAssociationItem from './uml/UseCaseAssociationItem';
 
 const styles = {
   position: 'relative'
@@ -44,14 +45,18 @@ class Canvas extends Component {
 
     const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
     const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
-    const renderAssociation = association => <AssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />;
+    const renderActorUseCaseAssociation = association => <ActorUseCaseAssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />;
+    const renderUseCaseAssociation = association => <UseCaseAssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />
 
     const renderComponents = () => {
       const actorsJSx = components.actors.map(renderActor);
       const useCasesJsx = components.useCases.map(renderUseCase);
-      const associationsJsx = components.associations.map(renderAssociation);
+      const actorUseCaseAssociationsJsx = components.actorUseCaseAssociations.map(renderActorUseCaseAssociation);
+      const useCaseAssociationsJSx = components.useCaseAssociations.map(renderUseCaseAssociation);
 
-      const componentsJsx = actorsJSx.concat(useCasesJsx).concat(associationsJsx);
+      const componentsJsx = actorsJSx.concat(useCasesJsx)
+        .concat(actorUseCaseAssociationsJsx)
+        .concat(useCaseAssociationsJSx);
 
       return componentsJsx;
     };
