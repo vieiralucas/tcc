@@ -15,6 +15,10 @@ const toolboxItemSource = {
 class ToolboxItem extends Component {
   render() {
     const props = this.props;
+    const previewStyle = {
+      display: props.isDragging ? 'none' : ''
+    };
+
     let className = 'button tile is-child box';
 
     if (props.isSelected) {
@@ -23,7 +27,7 @@ class ToolboxItem extends Component {
 
     return props.connectDragSource(
       <button className={className} onMouseDown={() => props.onClick(props.type)}>
-        { props.children }
+        { props.connectDragPreview(<div style={previewStyle}>{ props.children }</div>) }
         <h1 className='title'>{ props.title }</h1>
       </button>
     );
@@ -32,7 +36,9 @@ class ToolboxItem extends Component {
 
 const collect = (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging()
+
 });
 
 export default DragSource('UML_COMPONENTS', toolboxItemSource, collect)(ToolboxItem);
