@@ -17,10 +17,15 @@ export const umlComponentDelete = (id, componentType) => ({
 });
 
 export const UML_COMPONENT_ADD_ASSOCIATION = 'UML_COMPONENT_ADD_ASSOCIATION';
-export const umlComponentAddAssociation = (comp1, comp2) => ({
-  type: UML_COMPONENT_ADD_ASSOCIATION,
-  comp1, comp2
-});
+export const umlComponentAddAssociation = (comp1, comp2) => dispatch => {
+  const types = [comp1.type, comp2.type].sort();
+  if (types[0] === 'actor' && types[1] === 'use-case') {
+    dispatch({
+      type: UML_COMPONENT_ADD_ASSOCIATION,
+      comp1, comp2
+    });
+  }
+};
 
 export const UML_COMPONENT_RESET_LINK = 'UML_COMPONENT_RESET_LINK';
 export const umlComponentResetLink = () => ({
@@ -36,7 +41,43 @@ export const umlComponentLink = component => (dispatch, getState) => {
 
   const link = getState().useCaseDiagram.linking;
   if (link.comp1 && link.comp2) {
-    dispatch(umlComponentAddAssociation(link.comp1, link.comp2));
+    if (link.comp1.id !== link.comp2.id) {
+      dispatch(umlComponentAddAssociation(link.comp1, link.comp2));
+    }
+
     dispatch(umlComponentResetLink());
   }
 };
+
+export const TOOLBOX_SELECTION = 'TOOLBOX_SELECTION';
+export const toolboxSelection = componentType => ({
+  type: TOOLBOX_SELECTION,
+  componentType
+});
+
+export const ADD_COMPONENT = 'ADD_COMPONENT';
+export const addComponent = (x, y, componentType) => ({
+  type: ADD_COMPONENT,
+  x, y, componentType
+});
+
+export const CLEAR_TOOLBOX = 'CLEAR_TOOLBOX';
+export const clearToolbox = () => ({
+  type: CLEAR_TOOLBOX
+});
+
+export const CANVAS_CLICK = 'CANVAS_CLICK';
+export const canvasClick = (x, y) => (dispatch, getState) => {
+  dispatch({
+    type: CANVAS_CLICK,
+    x, y
+  });
+
+  const selectedAtToolbox = getState().useCaseDiagram.toolbox.selected;
+
+  if (selectedAtToolbox) {
+    dispatch(addComponent(x, y, selectedAtToolbox));
+    dispatch(clearToolbox());
+  }
+};
+

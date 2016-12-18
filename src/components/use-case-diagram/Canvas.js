@@ -24,6 +24,10 @@ class Canvas extends Component {
     this.props.onMove(id, x, y, type);
   }
 
+  handleCanvasClick({ pageX, pageY }) {
+    this.props.canvasClick(pageX - pageX * 0.40, pageY + pageY * 0.1);
+  }
+
   render() {
     const { components, onMove, onNameChange, deleteComponent, connectDropTarget, umlComponentLink } = this.props;
 
@@ -41,8 +45,16 @@ class Canvas extends Component {
       return componentsJsx;
     };
 
+    if (this.props.toolbox.selected) {
+      return connectDropTarget(
+        <div className='tile canvas' style={styles} onClick={this.handleCanvasClick.bind(this)}>
+          { renderComponents() }
+        </div>
+      );
+    }
+
     return connectDropTarget(
-      <div className='tile is-warning' style={styles}>
+      <div className='tile canvas' style={styles}>
         { renderComponents() }
       </div>
     );

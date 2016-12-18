@@ -38,6 +38,7 @@ class AssociationItem extends Component {
 
     const d = `M ${actor.x} ${actor.y} L ${useCase.x} ${useCase.y}`;
     const style = {
+      position: 'absolute',
       width: '100%',
       height: '100%'
     };

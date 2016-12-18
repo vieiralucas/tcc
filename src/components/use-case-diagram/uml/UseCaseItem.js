@@ -48,7 +48,7 @@ class UseCaseItem extends Component {
       width,
       minHeight: 35,
       maxHeight: height,
-      background: 'white'
+      background: 'cornsilk'
     };
     const inputStyle = {
       margin: '10px'

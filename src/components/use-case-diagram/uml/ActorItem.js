@@ -40,7 +40,7 @@ class ActorItem extends Component {
     const height = 70;
 
     const style = {
-      background: 'white',
+      background: 'cornsilk',
       borderRadius: '100%'
     };
     const inputStyle = {
@@ -64,7 +64,7 @@ class ActorItem extends Component {
     return (
       <BaseUML { ...this.props } width={width} height={height}>
         <div onDoubleClick={this.enterEdit.bind(this)} style={style} onClick={this.umlComponentLink.bind(this)}>
-          <ActorSVG width={width} height={height} />
+          <ActorSVG width={width} height={height} cursor='pointer' />
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }
         </div>

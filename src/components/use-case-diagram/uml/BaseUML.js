@@ -12,7 +12,8 @@ const BaseUML = props => {
   const style = {
     position: 'absolute',
     left: props.x - props.width / 2,
-    top: props.y - props.height / 2
+    top: props.y - props.height / 2,
+    zIndex: 1
   };
 
   return props.connectDragSource(

@@ -2,6 +2,21 @@
   height: 100vh;
 }
 
+.toolbox {
+  padding-top: 20px !important;
+  background: #00d1b2;
+  margin-right: 0px !important;
+}
+
+.toolbox > .is-active {
+  border: solid;
+  border-color: #3273dc;
+}
+
+.canvas {
+  background: cornsilk;
+}
+
 body {
   margin: 0;
   padding: 0;

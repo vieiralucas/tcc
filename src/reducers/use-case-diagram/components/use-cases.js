@@ -1,4 +1,6 @@
-import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE } from '../../../actions';
+import uuid from 'uuid';
+
+import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE, ADD_COMPONENT } from '../../../actions';
 
 const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 200, y: 100 };
 
@@ -20,6 +22,18 @@ const useCases = (useCases = [useCase1], action) => {
 
       return c;
     });
+  case ADD_COMPONENT:
+    if (action.componentType === 'use-case') {
+      return useCases.concat([{
+        id: uuid.v1(),
+        type: 'use-case',
+        name: 'Use Case',
+        x: action.x,
+        y: action.y
+      }]);
+    }
+
+    return useCases;
   default:
     return useCases;
   }
