@@ -12,20 +12,31 @@ const umlComponentTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
     const delta = monitor.getDifferenceFromInitialOffset();
+
+    if (item.from === 'toolbox') {
+      const initial = monitor.getInitialSourceClientOffset();
+      const itemBounding = item.bounding;
+      const x = Math.round(initial.x + delta.x - itemBounding.width / 2);
+      const y = Math.round(initial.y + delta.y + itemBounding.height / 2);
+
+      component.createUMLComponent(x, y, item.type);
+      return;
+    }
+
     const x = Math.round(item.x + delta.x);
     const y = Math.round(item.y + delta.y);
 
-    component.moveBox(item.id, x, y, item.type);
+    component.moveUMLComponent(item.id, x, y, item.type);
   }
 };
 
 class Canvas extends Component {
-  moveBox(id, x, y, type) {
+  moveUMLComponent(id, x, y, type) {
     this.props.onMove(id, x, y, type);
   }
 
-  handleCanvasClick({ pageX, pageY }) {
-    this.props.canvasClick(pageX - pageX * 0.40, pageY + pageY * 0.1);
+  createUMLComponent(x, y, type) {
+    this.props.addComponent(x, y, type);
   }
 
   render() {
@@ -44,14 +55,6 @@ class Canvas extends Component {
 
       return componentsJsx;
     };
-
-    if (this.props.toolbox.selected) {
-      return connectDropTarget(
-        <div className='tile canvas' style={styles} onClick={this.handleCanvasClick.bind(this)}>
-          { renderComponents() }
-        </div>
-      );
-    }
 
     return connectDropTarget(
       <div className='tile canvas' style={styles}>

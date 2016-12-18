@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ActorSVG = ({ width = 200, height = 70, cursor }) => {
+const ActorSVG = ({ width = 200, height = 70, cursor, style }) => {
     const headRadius =  8;
     const legHeight = 20;
     const fontSize = 10;
@@ -26,7 +26,7 @@ const ActorSVG = ({ width = 200, height = 70, cursor }) => {
     };
 
     return (
-      <svg width={width} height={height} cursor={cursor}>
+      <svg width={width} height={height} cursor={cursor} style={style}>
         <ellipse cx={headCenter.x} cy={headCenter.y}
           rx={headRadius} ry={headRadius}
           fillOpacity={0} stroke='black' strokeWidth={1} />

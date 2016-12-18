@@ -5,26 +5,30 @@ import ToolboxItem from './toolbox/ToolboxItem';
 const Toolbox = props => {
   const isSelected = type => props.toolbox.selected === type;
 
-  const style = {
+  const actorStyle = {
+    margin: 'auto'
+  };
+  const useCaseStyle = {
     fontSize: 10,
     border: 'solid',
     borderWidth: '1px',
     borderRadius: '100%',
     textAlign: 'center',
-    width: 200,
+    width: '80%',
     height: 35,
-    margin: 'auto'
+    margin: 'auto',
+    marginBottom: 10
   };
 
   return (
     <div className='container toolbox is-fluid tile is-parent is-vertical is-2'>
       <ToolboxItem title='Actor' type='actor' onClick={props.onClick}
         isSelected={isSelected('actor')}>
-        <ActorSVG />
+        <ActorSVG width={100} style={actorStyle}/>
       </ToolboxItem>
       <ToolboxItem title='Use Case' type='use-case' onClick={props.onClick}
         isSelected={isSelected('use-case')}>
-        <div style={style}>
+        <div style={useCaseStyle}>
           <p>Use Case Name</p>
         </div>
       </ToolboxItem>
