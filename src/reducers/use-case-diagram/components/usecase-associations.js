@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import uuid from 'uuid';
 
-import { ADD_USE_CASE_ASSOCIATION, UML_COMPONENT_MOVE, UML_COMPONENT_DELETE } from '../../../actions';
+import { ADD_USE_CASE_ASSOCIATION, UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, TOGGLE_USE_CASE_ASSOCIATION_TYPE } from '../../../actions';
 
 const useCaseAssociations = (associations = [], action) => {
   switch (action.type) {
@@ -40,6 +40,19 @@ const useCaseAssociations = (associations = [], action) => {
     } else {
       return associations;
     }
+  case TOGGLE_USE_CASE_ASSOCIATION_TYPE:
+    const swapMap = {
+      INCLUDES: 'EXTENDS',
+      EXTENDS: 'INCLUDES'
+    };
+
+    return associations.map(a => {
+      if (a.id === action.id) {
+        return { ...a, associationType: swapMap[a.associationType] };
+      }
+
+      return a;
+    });
   default:
     return associations;
   }

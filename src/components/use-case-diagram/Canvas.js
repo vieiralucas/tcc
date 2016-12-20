@@ -41,12 +41,20 @@ class Canvas extends Component {
   }
 
   render() {
-    const { components, onMove, onNameChange, deleteComponent, connectDropTarget, umlComponentLink } = this.props;
+    const {
+      components,
+      onMove,
+      onNameChange,
+      deleteComponent,
+      connectDropTarget,
+      umlComponentLink,
+      toggleUseCaseAssociationType
+    } = this.props;
 
     const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
     const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
     const renderActorUseCaseAssociation = association => <ActorUseCaseAssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />;
-    const renderUseCaseAssociation = association => <UseCaseAssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />
+    const renderUseCaseAssociation = association => <UseCaseAssociationItem key={association.id} {...association} toggleUseCaseAssociationType={toggleUseCaseAssociationType} deleteComponent={deleteComponent} />
 
     const renderComponents = () => {
       const actorsJSx = components.actors.map(renderActor);

@@ -9,7 +9,8 @@ const UseCaseDiagram = (props) => (
     <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
     <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
       onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
-      addComponent={props.addComponent} components={props.components} />
+      addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
+      components={props.components} />
   </div>
 );
 
@@ -36,6 +37,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addComponent: (x, y, type) => {
     dispatch(actions.addComponent(x, y, type));
+  },
+  toggleUseCaseAssociationType: id => {
+    dispatch(actions.toggleUseCaseAssociationType(id));
   }
 });
 

@@ -93,3 +93,8 @@ export const canvasClick = (x, y) => (dispatch, getState) => {
   }
 };
 
+export const TOGGLE_USE_CASE_ASSOCIATION_TYPE = 'TOGGLE_USE_CASE_ASSOCIATION_TYPE';
+export const toggleUseCaseAssociationType = id => ({
+  type: TOGGLE_USE_CASE_ASSOCIATION_TYPE,
+  id
+});
