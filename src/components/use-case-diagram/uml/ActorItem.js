@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import _ from 'lodash';
 import BaseUML from './BaseUML';
 import ActorSVG from './ActorSVG';
@@ -13,9 +13,9 @@ class ActorItem extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.state.isEditing) {
-      ReactDOM.findDOMNode(this.refs.nameInput).focus();
+      findDOMNode(this.refs.nameInput).focus();
     }
   }
 

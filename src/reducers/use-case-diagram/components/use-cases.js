@@ -1,12 +1,25 @@
 import uuid from 'uuid';
 
-import { UML_COMPONENT_MOVE, UML_COMPONENT_NAME_CHANGE, ADD_COMPONENT } from '../../../actions';
+import {
+  UML_COMPONENT_MOVE,
+  UML_COMPONENT_NAME_CHANGE,
+  UML_COMPONENT_BOUND_UPDATE,
+  ADD_COMPONENT
+} from '../../../actions';
 
-const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 200, y: 100 };
-const useCase2 = { id: 4, type: 'use-case', name: 'remover usuário', x: 200, y: 400 };
+const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 200, y: 100, bound: null };
+const useCase2 = { id: 4, type: 'use-case', name: 'remover usuário', x: 200, y: 400, bound: null };
 
 const useCases = (useCases = [useCase1, useCase2], action) => {
   switch (action.type) {
+  case UML_COMPONENT_BOUND_UPDATE:
+    return useCases.map(c => {
+      if (c.id === action.id) {
+        return { ...c, bound: action.bound };
+      }
+
+      return c;
+    });
   case UML_COMPONENT_MOVE:
     return useCases.map(c => {
       if (c.id === action.id) {

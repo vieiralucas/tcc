@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import _ from 'lodash';
+import { findDOMNode } from 'react-dom';
 import BaseUML from './BaseUML';
+import _ from 'lodash';
 
 class UseCaseItem extends Component {
   constructor(props) {
@@ -12,9 +12,9 @@ class UseCaseItem extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.state.isEditing) {
-      ReactDOM.findDOMNode(this.refs.nameInput).focus();
+      findDOMNode(this.refs.nameInput).focus();
     }
   }
 
@@ -62,7 +62,7 @@ class UseCaseItem extends Component {
 
     return (
       <BaseUML { ...this.props } width={width} height={height}>
-        <div style={style} onDoubleClick={this.enterEdit.bind(this)} onClick={this.umlComponentLink.bind(this)}>
+        <div ref='bound' style={style} onDoubleClick={this.enterEdit.bind(this)} onClick={this.umlComponentLink.bind(this)}>
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }
         </div>

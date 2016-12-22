@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { DragSource } from 'react-dnd';
+import _ from 'lodash';
 
 const umlComponentSource = {
   beginDrag(props) {
@@ -8,20 +10,39 @@ const umlComponentSource = {
   }
 };
 
-const BaseUML = props => {
-  const style = {
-    position: 'absolute',
-    left: props.x - props.width / 2,
-    top: props.y - props.height / 2,
-    zIndex: 1
-  };
+class BaseUML extends Component {
+  getBound() {
+    const { width, height } = findDOMNode(this.bound).getBoundingClientRect();
+    return { width, height };
+  }
 
-  return props.connectDragSource(
-    <div style={style}>
-      { props.children }
-    </div>
-  );
-};
+  componentDidUpdate(prevProps) {
+    const newBound = this.getBound();
+
+    if (!_.isEqual(prevProps.bound, newBound)) {
+      this.props.boundUpdate(this.props.id, newBound);
+    }
+  }
+
+  componentDidMount() {
+    this.props.boundUpdate(this.props.id, this.getBound());
+  }
+
+  render() {
+    const style = {
+      position: 'absolute',
+      left: this.props.x - this.props.width / 2,
+      top: this.props.y - this.props.height / 2,
+      zIndex: 1
+    };
+
+    return this.props.connectDragSource(
+      <div ref={bound => this.bound = bound} style={style}>
+        { this.props.children }
+      </div>
+    );
+  }
+}
 
 const collect = (connect, monitor) => ({
   connectDragSource: connect.dragSource(),

@@ -48,11 +48,12 @@ class Canvas extends Component {
       deleteComponent,
       connectDropTarget,
       umlComponentLink,
-      toggleUseCaseAssociationType
+      toggleUseCaseAssociationType,
+      boundUpdate
     } = this.props;
 
-    const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
-    const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} />
+    const renderActor = actor => <ActorItem key={actor.id} {...actor} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink} boundUpdate={boundUpdate} />
+    const renderUseCase = useCase => <UseCaseItem key={useCase.id} {...useCase} onMove={onMove} onNameChange={onNameChange} umlComponentLink={umlComponentLink}  boundUpdate={boundUpdate} />
     const renderActorUseCaseAssociation = association => <ActorUseCaseAssociationItem key={association.id} {...association} deleteComponent={deleteComponent} />;
     const renderUseCaseAssociation = association => <UseCaseAssociationItem key={association.id} {...association} toggleUseCaseAssociationType={toggleUseCaseAssociationType} deleteComponent={deleteComponent} />
 

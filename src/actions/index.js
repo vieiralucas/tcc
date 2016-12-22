@@ -98,3 +98,9 @@ export const toggleUseCaseAssociationType = id => ({
   type: TOGGLE_USE_CASE_ASSOCIATION_TYPE,
   id
 });
+
+export const UML_COMPONENT_BOUND_UPDATE = 'UML_COMPONENT_BOUND_UPDATE';
+export const umlComponentBoundUpdate = (id, bound) => ({
+  type: UML_COMPONENT_BOUND_UPDATE,
+  id, bound
+});
