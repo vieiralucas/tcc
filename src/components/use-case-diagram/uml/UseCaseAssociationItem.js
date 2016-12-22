@@ -40,8 +40,6 @@ class UseCaseAssociationItem extends Component {
     const useCase1 = this.props.useCase1;
     const useCase2 = this.props.useCase2;
 
-    const d = `M ${useCase1.x} ${useCase1.y} L ${useCase2.x} ${useCase2.y}`;
-
     const strokeColor = this.state.isSelected ? 'red' : 'black';
     const center = {
       x: (useCase1.x + useCase2.x) / 2,
@@ -67,6 +65,51 @@ class UseCaseAssociationItem extends Component {
     const textStyle = {
       cursor: 'pointer'
     };
+
+    const x = useCase1.x;
+    const y = useCase1.y;
+    const w = useCase2.bound.width;
+    const h = useCase2.bound.height;
+    const rx = useCase2.x;
+    const ry = useCase2.y;
+
+    const m = ((x - rx) / w) + ((y - ry) / h);
+    const n = ((x - rx) / w) - ((y - ry) / h);
+
+    let quadrant = '';
+    if (m > 0){
+      if (n > 0) {
+        quadrant = 'right';
+      } else {
+        quadrant = 'bottom';
+      }
+    } else {
+      if (n > 0) {
+        quadrant = 'top';
+      } else {
+        quadrant = 'left';
+      }
+    }
+
+    let contactPoint;
+
+    switch (quadrant) {
+      case 'right':
+        contactPoint = { x: useCase2.x + useCase2.bound.width / 2, y: useCase2.y };
+        break;
+      case 'bottom':
+        contactPoint = { x: useCase2.x, y: useCase2.y + useCase2.bound.height / 2 };
+        break;
+      case 'top':
+        contactPoint = { x: useCase2.x, y: useCase2.y - useCase2.bound.height / 2 };
+        break;
+      default: {
+        contactPoint = { x: useCase2.x - useCase2.bound.width / 2, y: useCase2.y };
+        break;
+      }
+    }
+
+    const d = `M ${useCase1.x} ${useCase1.y} L ${Math.round(contactPoint.x)} ${Math.round(contactPoint.y)}`;
 
     return (
       <svg style={style} onKeyDown={this.onKeyDown.bind(this)}>

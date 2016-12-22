@@ -12,8 +12,8 @@ const umlComponentSource = {
 
 class BaseUML extends Component {
   getBound() {
-    const { width, height } = findDOMNode(this.bound).getBoundingClientRect();
-    return { width, height };
+    const bound = findDOMNode(this.bound).getBoundingClientRect();
+    return _.pick(bound, 'width', 'height');
   }
 
   componentDidUpdate(prevProps) {
@@ -32,7 +32,7 @@ class BaseUML extends Component {
     const style = {
       position: 'absolute',
       left: this.props.x - this.props.width / 2,
-      top: this.props.y - this.props.height / 2,
+      top: this.props.y - ((this.props.bound || {}).height || 0) / 2,
       zIndex: 1
     };
 
