@@ -35,7 +35,6 @@ class UseCaseItem extends Component {
     const { id, name, onNameChange } = this.props;
     const fontSize = 10;
     const width = 200;
-    const height = 70;
 
     const style = {
       fontSize: `${fontSize}px`,
@@ -47,8 +46,7 @@ class UseCaseItem extends Component {
       whiteSpace: 'pre-wrap',
       wordWrap: 'break-word',
       width,
-      minHeight: 35,
-      maxHeight: height,
+      minHeight: 50,
       background: 'cornsilk'
     };
     const inputStyle = {
@@ -62,7 +60,7 @@ class UseCaseItem extends Component {
     const renderParagraph = () => <p>{ name }</p>
 
     return (
-      <BaseUML { ...this.props } width={width} height={height}>
+      <BaseUML { ...this.props } width={width}>
         <div ref='bound' style={style} onDoubleClick={this.enterEdit.bind(this)} onClick={this.umlComponentLink.bind(this)}>
           { this.state.isEditing && renderInput() }
           { !this.state.isEditing && renderParagraph() }

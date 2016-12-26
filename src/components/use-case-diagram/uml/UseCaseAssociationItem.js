@@ -92,19 +92,24 @@ class UseCaseAssociationItem extends Component {
     }
 
     let contactPoint;
+    let arrow;
 
     switch (quadrant) {
       case 'right':
         contactPoint = { x: useCase2.x + useCase2.bound.width / 2, y: useCase2.y };
+	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x + 10} ${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
         break;
       case 'bottom':
         contactPoint = { x: useCase2.x, y: useCase2.y + useCase2.bound.height / 2 };
+	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y + 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
         break;
       case 'top':
         contactPoint = { x: useCase2.x, y: useCase2.y - useCase2.bound.height / 2 };
+	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y - 10} L ${contactPoint.x} ${contactPoint.y}`;
         break;
       default: {
         contactPoint = { x: useCase2.x - useCase2.bound.width / 2, y: useCase2.y };
+	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y - 10} M ${contactPoint.x - 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
         break;
       }
     }
@@ -120,6 +125,8 @@ class UseCaseAssociationItem extends Component {
         <path strokeDasharray='5, 5' tabIndex='0' d={d} strokeWidth='1' stroke={strokeColor}
           onClick={this.select.bind(this)} onBlur={this.unselect.bind(this)}
           style={pathStyle} />
+	<path d={arrow} strokeWidth='1' stroke={strokeColor}
+          onClick={this.select.bind(this)} onBlur={this.unselect.bind(this)} />
       </svg>
     );
   }
