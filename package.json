@@ -1,33 +1,19 @@
 {
-  "name": "tcc",
-  "version": "0.1.0",
-  "private": true,
+  "name": "tcc-server",
+  "version": "0.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:vieiralucas/tcc.git",
+  "author": "Lucas Vieira <vieiralucas4@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js"
+  },
   "devDependencies": {
-    "nodemon": "^1.11.0",
-    "react-scripts": "0.8.3",
-    "redux-devtools": "^3.3.1",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-log-monitor": "^1.1.1",
-    "redux-logger": "^2.7.4"
+    "concurrently": "^3.1.0"
   },
   "dependencies": {
-    "bulma": "^0.2.3",
-    "lodash": "^4.17.2",
-    "react": "^15.4.1",
-    "react-dnd": "^2.1.4",
-    "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.4.1",
-    "react-redux": "^4.4.6",
-    "react-router": "^3.0.0",
-    "react-router-redux": "^4.0.7",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
-    "uuid": "^3.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "express": "^4.14.0"
   }
 }
