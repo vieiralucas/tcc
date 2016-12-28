@@ -107,22 +107,22 @@ export const umlComponentBoundUpdate = (id, bound) => ({
 
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const userLoggedIn = user => ({
-	type: USER_LOGGED_IN,
-	user
+  type: USER_LOGGED_IN,
+  user
 });
 
 export const USER_LOGGING_IN = 'USER_LOGIN';
 export const userLogin = user => dispatch => {
-	dispatch({
-		type: USER_LOGGING_IN
-	});
+  dispatch({
+    type: USER_LOGGING_IN
+  });
 
-	setTimeout(() => {
-		dispatch(userLoggedIn({ name: 'lucas' }));
-	}, 2000);
+  setTimeout(() => {
+    dispatch(userLoggedIn({ name: 'lucas', token: '132146831' }));
+  }, 2000);
 };
 
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const userLoggedOut = () => ({
-	type: USER_LOGGED_IN
+  type: USER_LOGGED_IN
 });
