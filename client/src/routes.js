@@ -9,8 +9,8 @@ import Loading from './components/Loading';
 
 // Redirects to /login by default
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state.user.data, // how to get the user state
-	authenticatingSelector: state => state.user.isLoading,
+  authSelector: state => state.login.user, // how to get the user state
+	authenticatingSelector: state => state.login.isLoading,
   redirectAction: routerActions.replace, // the redux action to dispatch for redirect
 	LoadingComponent: Loading,
   wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check

@@ -105,24 +105,52 @@ export const umlComponentBoundUpdate = (id, bound) => ({
   id, bound
 });
 
-export const USER_LOGGED_IN = 'USER_LOGGED_IN';
-export const userLoggedIn = user => ({
-  type: USER_LOGGED_IN,
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const loginSuccess = user => ({
+  type: LOGIN_SUCCESS,
   user
 });
 
-export const USER_LOGGING_IN = 'USER_LOGIN';
-export const userLogin = user => dispatch => {
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const loginFailure = err => ({
+  type: LOGIN_FAILURE,
+  err
+});
+
+export const LOGIN_USER = 'LOGIN_USER';
+export const loginUser = credentials => dispatch => {
   dispatch({
-    type: USER_LOGGING_IN
+    type: LOGIN_USER
   });
 
-  setTimeout(() => {
-    dispatch(userLoggedIn({ name: 'lucas', token: '132146831' }));
-  }, 2000);
+  console.log(credentials);
+  console.log(fetch);
+  const config = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentials)
+  };
+  return fetch('api/sessions', config)
+    .then(response => {
+      return response.json()
+        .then(body => {
+          if (!response.ok) {
+            throw new Error(body.reason);
+          }
+
+          return body;
+        });
+    })
+    .then(user => {
+			localStorage.setItem('user', user);
+      dispatch(loginSuccess(user));
+    })
+    .catch(err => {
+      dispatch(loginFailure(err));
+    });
 };
 
-export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
-export const userLoggedOut = () => ({
-  type: USER_LOGGED_IN
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const logoutUser = () => ({
+  type: LOGOUT_USER
 });

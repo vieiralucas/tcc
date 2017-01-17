@@ -16,8 +16,6 @@ class Login extends Component {
     const { isAuthenticated: wasAuthenticated } = this.props
 
     if (!wasAuthenticated && isAuthenticated) {
-      console.log(redirect);
-      window.r = replace;
       replace(redirect)
     }
   }
@@ -25,12 +23,18 @@ class Login extends Component {
   login = (e) => {
     e.preventDefault();
     this.props.login({
-      email: this.refs.email,
-      password: this.refs.password
+      email: this.refs.email.value,
+      password: this.refs.password.value
     });
   }
 
   render() {
+    const showErrorMessage = () => (
+      <p className='help is-danger'>
+        { this.props.err.message }
+      </p>
+    );
+
     return (
       <section className='hero is-fullheight is-dark is-bold'>
         <div className='hero-body'>
@@ -49,6 +53,7 @@ class Login extends Component {
                   <p className='control'>
                     <input ref='password' className='input' type='password' placeholder='●●●●●●●' />
                   </p>
+                  { this.props.err && showErrorMessage() }
                   <hr />
                   <p className='control'>
                     <button className='button is-primary' onClick={this.login}>Login</button>
@@ -66,18 +71,19 @@ class Login extends Component {
   };
 };
 
-const mapStateToProps = ({ user }, ownProps) => {
-  const isAuthenticated = Boolean(user.data && user.data.token) || false;
+const mapStateToProps = ({ login }, ownProps) => {
+  const isAuthenticated = Boolean(login.user && login.user.token) || false;
   const redirect = ownProps.location.query.redirect || '/';
   return {
     isAuthenticated,
-    redirect
+    redirect,
+    err: login.err
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   login: (user, password) => {
-    dispatch(actions.userLogin(user, password));
+    dispatch(actions.loginUser(user, password));
   },
   replace: path => {
     dispatch(routerActions.replace(path));
