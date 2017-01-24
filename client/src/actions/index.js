@@ -142,7 +142,7 @@ export const loginUser = credentials => dispatch => {
         });
     })
     .then(user => {
-			localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       dispatch(loginSuccess(user));
     })
     .catch(err => {
