@@ -44,7 +44,7 @@ class Login extends Component {
                 <h1 className='title'>
                   Login
                 </h1>
-                <div className='box'>
+                <form className='box' onSubmit={this.login}>
                   <label className='label'>Email</label>
                   <p className='control'>
                     <input ref='email' className='input' type='email' placeholder='lucas@example.org' />
@@ -56,12 +56,12 @@ class Login extends Component {
                   { this.props.err && showErrorMessage() }
                   <hr />
                   <p className='control'>
-                    <button className='button is-primary' onClick={this.login}>Login</button>
+                    <button className='button is-primary' type='submit'>Login</button>
                   </p>
-                </div>
                 <p className='has-text-centered'>
                   <a>Register an Account</a>
                 </p>
+                </form>
               </div>
             </div>
           </div>
