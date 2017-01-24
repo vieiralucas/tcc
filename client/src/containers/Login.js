@@ -58,9 +58,6 @@ class Login extends Component {
                   <p className='control'>
                     <button className='button is-primary' type='submit'>Login</button>
                   </p>
-                <p className='has-text-centered'>
-                  <a>Register an Account</a>
-                </p>
                 </form>
               </div>
             </div>
