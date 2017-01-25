@@ -9,6 +9,9 @@ coverage
 # production
 build
 
+# mongo
+mongodata
+
 # misc
 .DS_Store
 .env
