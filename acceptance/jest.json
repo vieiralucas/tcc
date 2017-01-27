@@ -1,0 +1,4 @@
+{
+  "setupTestFrameworkScriptFile": "./acceptance/setup.js",
+  "testRegex": "((\\.|/)(acceptance))\\.js$"
+}
