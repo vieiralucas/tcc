@@ -8,12 +8,21 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
-    "client": "node start-client.js"
+    "client": "node start-client.js",
+    "acceptance": "mocha acceptance/setup.js acceptance/**/*.acceptance.js --timeout=10000",
+    "unit": "mocha lib/**/*.test.js"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
+    "chai": "^3.5.0",
     "concurrently": "^3.1.0",
+    "mocha": "^3.2.0",
+    "mongod": "^2.0.0",
     "nodemon": "^1.11.0",
-    "sequelize-cli": "^2.5.1"
+    "proxyquire": "^1.7.10",
+    "sequelize-cli": "^2.5.1",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^2.0.1"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",

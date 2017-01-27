@@ -3,8 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const config = require('./lib/config/config.json');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 mongoose.Promise = Bluebird;
-mongoose.connect('mongodb://localhost/tcc-development');
+mongoose.connect(`mongodb://localhost/${config[process.env.NODE_ENV].database}`);
 
 const router = require('./lib/router');
 
@@ -22,5 +26,11 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(app.get('port'), () => {
   console.log(`Express server running at ${app.get('port')}`);
+
+  // send message to parent process
+  if (process.send) {
+    process.send({ status: 'listening' });
+  }
 });
 
+module.exports = app;

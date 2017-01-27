@@ -1,23 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "tcc_development",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "tcc_development"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "tcc_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "tcc_test"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "tcc_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "tcc_production"
   }
 }
