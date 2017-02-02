@@ -1,12 +1,13 @@
+const Bluebird = require('bluebird');
 const Mongod = require('mongod');
 
 const server = new Mongod({
   dbpath: './mongodata'
 });
 
-const up = () => server.open();
+const up = () => Bluebird.resolve(server.open());
 
-const down = () => server.close();
+const down = () => Bluebird.resolve(server.close());
 
 module.exports = {
   up,

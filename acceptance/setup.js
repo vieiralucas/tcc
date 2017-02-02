@@ -1,3 +1,14 @@
+const { mongo, seed, app } = require('./support');
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'test';
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // 10 second timeout
+
+before(() => mongo.up()
+  .then(() => app.up()));
+
+beforeEach(seed.up);
+
+after(() => app.down()
+  .then(() => mongo.down()));
+
+afterEach(seed.down);
 

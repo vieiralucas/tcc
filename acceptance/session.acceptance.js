@@ -1,16 +1,9 @@
-const { mongo, seed, app } = require('./support');
+const { app } = require('./support');
+const { expect } = require('chai');
 
 const api = app.api;
 
 describe('Session API', () => {
-  beforeEach(() => mongo.up()
-    .then(() => seed.up())
-    .then(() => app.up()));
-
-  afterEach(() => app.down()
-    .then(() => seed.down())
-    .then(() => mongo.down()));
-
   describe('POST /api/sessions', () => {
     it('should return 401 if user does not exist', () => {
       return api.post('/api/sessions')
@@ -18,7 +11,7 @@ describe('Session API', () => {
         .send(JSON.stringify({ email: 'unknown', password: '123456' }))
         .expect(401)
         .expect(({ body }) => {
-          expect(body.reason).toBe('User not found');
+          expect(body).to.have.property('reason', 'User not found');
         });
     });
 
@@ -28,7 +21,7 @@ describe('Session API', () => {
         .send(JSON.stringify({ email: 'admin@test.com', password: '123456' }))
         .expect(401)
         .expect(({ body }) => {
-          expect(body.reason).toBe('Wrong password');
+          expect(body).to.have.property('reason', 'Wrong password');
         });
     });
 
@@ -38,13 +31,12 @@ describe('Session API', () => {
         .send(JSON.stringify({ email: 'admin@test.com', password: 'admin' }))
         .expect(200)
         .expect(({ status, body }) => {
-          expect(body).toEqual({
-            profile: {
-              name: 'admin',
-              email: 'admin@test.com'
-            },
-            token: expect.any(String)
+          expect(body).to.have.property('profile').eql({
+            name: 'admin',
+            email: 'admin@test.com'
           });
+
+          expect(body).to.have.property('token').which.is.a('string');
         });
     });
   });

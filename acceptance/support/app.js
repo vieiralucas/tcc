@@ -9,7 +9,7 @@ function server() {
   function up() {
     return new Bluebird((resolve, reject) => {
       let resolved = false;
-      serverChildProcess = fork('./server.js', [], { silent: true, env: process.env });
+      serverChildProcess = fork('./server.js', [], { silent: false, env: process.env });
 
       serverChildProcess.on('message', message => {
         if (message.status === 'listening') {
