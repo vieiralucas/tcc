@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import { routerActions } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 
-import UseCaseDiagram from './containers/UseCaseDiagram'
+import Projects from './containers/Projects'
 import Login from './containers/Login'
 import Loading from './components/Loading';
 
@@ -18,7 +18,7 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 export default (
 	<Route path='/'>
-		<IndexRoute component={UserIsAuthenticated(UseCaseDiagram)} />
+		<IndexRoute component={UserIsAuthenticated(Projects)} />
 		<Route path='login' component={Login} />
 	</Route>
 );
