@@ -9,7 +9,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "node start-client.js",
-    "acceptance": "jest -c acceptance/jest.json",
+    "acceptance": "mocha acceptance/setup.js acceptance/*acceptance.js",
     "unit": "jest",
     "test": "npm run acceptance && npm run unit"
   },

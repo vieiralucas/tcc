@@ -56,7 +56,7 @@ function server() {
   return {
     up,
     down,
-    api: supertest('http://localhost:3001')
+    api: supertest(`http://localhost:${process.env.PORT}`)
   };
 }
 
