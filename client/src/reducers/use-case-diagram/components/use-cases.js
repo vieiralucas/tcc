@@ -5,7 +5,7 @@ import {
   UML_COMPONENT_NAME_CHANGE,
   UML_COMPONENT_BOUND_UPDATE,
   ADD_COMPONENT
-} from '../../../actions';
+} from '../../../actions/use-case-diagram';
 
 const useCase1 = { id: 2, type: 'use-case', name: 'cadastrar usuário', x: 200, y: 100, bound: null };
 const useCase2 = { id: 4, type: 'use-case', name: 'remover usuário', x: 200, y: 400, bound: null };

@@ -5,7 +5,7 @@ import {
   UML_COMPONENT_NAME_CHANGE,
   UML_COMPONENT_BOUND_UPDATE,
   ADD_COMPONENT
-} from '../../../actions';
+} from '../../../actions/use-case-diagram';
 
 const actor1 = { id: 1, type: 'actor', name: 'lucas', x: 400, y: 100, bound: null };
 

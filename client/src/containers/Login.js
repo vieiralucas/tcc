@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routerActions } from 'react-router-redux'
-import * as actions from '../actions';
+import { loginUser } from '../actions/login';
 
 class Login extends Component {
   componentWillMount() {
@@ -80,7 +80,7 @@ const mapStateToProps = ({ login }, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   login: (user, password) => {
-    dispatch(actions.loginUser(user, password));
+    dispatch(loginUser(user, password));
   },
   replace: path => {
     dispatch(routerActions.replace(path));

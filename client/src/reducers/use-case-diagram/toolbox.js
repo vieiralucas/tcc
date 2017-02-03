@@ -1,4 +1,4 @@
-import { TOOLBOX_SELECTION, CLEAR_TOOLBOX } from '../../actions';
+import { TOOLBOX_SELECTION, CLEAR_TOOLBOX } from '../../actions/use-case-diagram';
 
 const initial = {
   selected: null

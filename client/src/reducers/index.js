@@ -7,6 +7,6 @@ const rootReducer = combineReducers({
   useCaseDiagram,
 	login,
   routing
-})
+});
 
 export default rootReducer

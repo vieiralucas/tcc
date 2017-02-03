@@ -7,7 +7,7 @@ import {
   UML_COMPONENT_BOUND_UPDATE,
   UML_COMPONENT_DELETE,
   UML_COMPONENT_MOVE
-} from '../../../actions';
+} from '../../../actions/use-case-diagram';
 
 const useCaseAssociations = (associations = [], action) => {
   switch (action.type) {

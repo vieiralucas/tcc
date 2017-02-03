@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import uuid from 'uuid';
-import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, UML_COMPONENT_ADD_ASSOCIATION } from '../../../actions';
+import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, UML_COMPONENT_ADD_ASSOCIATION } from '../../../actions/use-case-diagram';
 
 const association1 = {
   id: 3,

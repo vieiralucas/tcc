@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '../actions';
+import { LOGIN_USER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '../actions/login';
 
 const fromLocalStorage = () => {
   try {

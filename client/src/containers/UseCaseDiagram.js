@@ -2,20 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Canvas from '../components/use-case-diagram/Canvas';
 import Toolbox from '../components/use-case-diagram/Toolbox';
-import * as actions from '../actions';
+import * as actions from '../actions/use-case-diagram';
 
-const UseCaseDiagram = (props) => {
-  console.log('new props');
-  return (
-    <div className='tile is-ancestor is-full-height'>
-      <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
-      <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
-        onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
-        addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
-        boundUpdate={props.boundUpdate} components={props.components} />
-    </div>
-  );
-};
+const UseCaseDiagram = props => (
+  <div className='tile is-ancestor is-full-height'>
+    <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
+    <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
+      onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
+      addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
+      boundUpdate={props.boundUpdate} components={props.components} />
+  </div>
+);
 
 const mapStateToProps = ({ useCaseDiagram, user }, ownProps) => ({
   components: useCaseDiagram.components,

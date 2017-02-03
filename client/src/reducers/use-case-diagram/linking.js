@@ -1,4 +1,4 @@
-import { UML_COMPONENT_LINK, UML_COMPONENT_RESET_LINK } from '../../actions';
+import { UML_COMPONENT_LINK, UML_COMPONENT_RESET_LINK } from '../../actions/use-case-diagram';
 
 const initial = {
   comp1: null,
