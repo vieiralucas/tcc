@@ -1,26 +1,15 @@
 import _ from 'lodash';
 import uuid from 'uuid';
-import { UML_COMPONENT_MOVE, UML_COMPONENT_DELETE, UML_COMPONENT_ADD_ASSOCIATION } from '../../../actions/use-case-diagram';
-
-const association1 = {
-  id: 3,
-  type: 'association',
-  useCase: {
-    id: 2,
-    x: 200,
-    y: 100
-  },
-  actor: {
-    id: 1,
-    x: 400,
-    y: 100
-  }
-};
+import {
+  UML_COMPONENT_MOVE,
+  UML_COMPONENT_DELETE,
+  UML_COMPONENT_ADD_ASSOCIATION
+} from '../../../actions/use-case-diagram';
 
 const associationExists = (associations, actorId, useCaseId) =>
   associations.some(a => a.actor.id === actorId && a.useCase.id === useCaseId);
 
-const associations = (associations = [association1], action) => {
+const associations = (associations = [], action) => {
   switch (action.type) {
   case UML_COMPONENT_MOVE:
     if (action.componentType === 'actor') {
@@ -45,7 +34,7 @@ const associations = (associations = [association1], action) => {
 
     return associations;
   case UML_COMPONENT_DELETE:
-    if (!action.componentType === 'association') {
+    if (action.componentType !== 'association') {
       return associations;
     }
 
@@ -56,8 +45,14 @@ const associations = (associations = [association1], action) => {
       return associations;
     }
   case UML_COMPONENT_ADD_ASSOCIATION:
-    const useCase = action.comp1.type === 'use-case' ? action.comp1 : action.comp2;
-    const actor = action.comp1.type === 'actor' ? action.comp1 : action.comp2;
+    const comps = [action.comp1, action.comp2];
+
+    const actor = comps.find(c => c.type === 'actor');
+    const useCase = comps.find(c => c.type === 'use-case');
+
+    if (!actor || !useCase) {
+      return associations;
+    }
 
     if (associationExists(associations, actor.id, useCase.id)) {
       return associations;

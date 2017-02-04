@@ -7,9 +7,7 @@ import {
   ADD_COMPONENT
 } from '../../../actions/use-case-diagram';
 
-const actor1 = { id: 1, type: 'actor', name: 'lucas', x: 400, y: 100, bound: null };
-
-const actors = (actors = [actor1], action) => {
+const actors = (actors = [], action) => {
   switch (action.type) {
   case UML_COMPONENT_BOUND_UPDATE:
     return actors.map(c => {

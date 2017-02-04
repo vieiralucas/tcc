@@ -16,8 +16,6 @@ export const loginUser = credentials => dispatch => {
     type: LOGIN_USER
   });
 
-  console.log(credentials);
-  console.log(fetch);
   const config = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

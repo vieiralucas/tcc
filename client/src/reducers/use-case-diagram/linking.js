@@ -15,7 +15,7 @@ const linking = (linking = initial, action) => {
       };
     }
 
-    if (linking.comp1.id === action.id) {
+    if (linking.comp1.id === action.component.id) {
       return linking;
     }
 
@@ -24,7 +24,7 @@ const linking = (linking = initial, action) => {
       comp2: action.component
     };
   case UML_COMPONENT_RESET_LINK:
-    return { comp1: null, comp2: null };
+    return initial;
   default:
     return linking;
   }

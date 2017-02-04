@@ -9,7 +9,7 @@ const toolbox = (state = initial, action) => {
     case TOOLBOX_SELECTION:
       return { selected: action.componentType };
     case CLEAR_TOOLBOX:
-      return { selected: null };
+      return initial;
     default:
       return state;
   }
