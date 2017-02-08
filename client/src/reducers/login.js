@@ -1,9 +1,14 @@
+import api from '../api';
+
 import { LOGIN_USER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '../actions/login';
 
 const fromLocalStorage = () => {
   try {
+    const user = JSON.parse(localStorage.getItem('user'));
+    api.token = user.token;
+
     return {
-      user: JSON.parse(localStorage.getItem('user')),
+      user,
       err: null,
       isLoading: false
     };

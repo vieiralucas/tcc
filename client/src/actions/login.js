@@ -1,3 +1,5 @@
+import api from '../api';
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -16,22 +18,7 @@ export const loginUser = credentials => dispatch => {
     type: LOGIN_USER
   });
 
-  const config = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials)
-  };
-  return fetch('api/sessions', config)
-    .then(response => {
-      return response.json()
-        .then(body => {
-          if (!response.ok) {
-            throw new Error(body.reason);
-          }
-
-          return body;
-        });
-    })
+  return api.getSession(credentials)
     .then(user => {
       localStorage.setItem('user', JSON.stringify(user));
       dispatch(loginSuccess(user));
