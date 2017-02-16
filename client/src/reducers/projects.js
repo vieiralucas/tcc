@@ -1,7 +1,8 @@
 import {
   PROJECTS_FETCHED,
   FETCH_PROJECTS_BY_USER,
-  FETCH_PROJECTS_ERROR
+  FETCH_PROJECTS_ERROR,
+  PROJECT_CREATED
 } from '../actions/projects';
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
   error: null
 };
 
-const projects = (state, action) => {
+const projects = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_PROJECTS_BY_USER:
     return { ...state, loading: true };
@@ -18,8 +19,10 @@ const projects = (state, action) => {
     return { ...state, list: action.projects, loading: false };
   case FETCH_PROJECTS_ERROR:
     return { ...state, loading: false, error: action.error };
+  case PROJECT_CREATED:
+    return { ...state, list: [...state.list, action.project ]};
   default:
-    return initialState;
+    return state;
   }
 };
 

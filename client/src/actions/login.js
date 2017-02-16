@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+
 import api from '../api';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -20,11 +22,11 @@ export const loginUser = credentials => dispatch => {
 
   return api.getSession(credentials)
     .then(user => {
-      localStorage.setItem('user', JSON.stringify(user));
       dispatch(loginSuccess(user));
+      dispatch(push('/'));
     })
     .catch(err => {
-      dispatch(loginFailure(err));
+      dispatch(loginFailure(err.body));
     });
 };
 

@@ -5,11 +5,36 @@ import * as actions from '../actions/projects';
 
 import NavBar from '../components/navbar';
 import Loading from '../components/Loading';
-import ProjectItem from '../components/projects/ProjectItem';
+import ProjectsList from '../components/projects/ProjectsList';
+import CreateProjectModal from '../components/projects/CreateProjectModal';
 
 class Projects extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      creatingProject: false
+    };
+  }
+
+  componentWillMount() {
     this.props.fetchProjects(this.props.user);
+  }
+
+  openCreateProjectModal() {
+    this.setState({
+      creatingProject: true
+    });
+  }
+
+  closeCreateProjectModal() {
+    this.setState({
+      creatingProject: false
+    });
+  }
+
+  createProject(project) {
+    this.props.createProject(project, this.props.user);
   }
 
   render() {
@@ -25,16 +50,23 @@ class Projects extends Component {
       }
 
       return (
-        <ul>
-          { projects.list.map(p => <ProjectItem project={p} />) }
-        </ul>
+        <ProjectsList
+          projects={projects.list}
+          openCreateProjectModal={this.openCreateProjectModal.bind(this)} />
       );
     };
 
     return (
       <div>
         <NavBar title='Projects' user={user} />
-        { renderProjects() }
+        <section className='section'>
+          { renderProjects() }
+        </section>
+        {
+          this.state.creatingProject &&
+          <CreateProjectModal close={this.closeCreateProjectModal.bind(this)}
+            create={this.createProject.bind(this)} />
+        }
       </div>
     );
   }
@@ -42,12 +74,15 @@ class Projects extends Component {
 
 const mapStateToProps = ({ projects, login }) => ({
   projects,
-  user: login.user.profile
+  user: login.user
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchProjects: user => {
     dispatch(actions.fetchProjectsByUser(user));
+  },
+  createProject: (project, user) => {
+    dispatch(actions.createProject(project, user));
   }
 });
 

@@ -30,8 +30,11 @@ describe('Login Reducer', () => {
 
   it('should return user from localstorage', () => {
     localStorage.setItem('user', JSON.stringify({
-      name: 'user',
-      email: 'user@user.com'
+      profile: {
+        name: 'user',
+        email: 'user@user.com'
+      },
+      token: 'token123'
     }));
 
     const state = loginReducer(undefined, { type: '' });
@@ -57,14 +60,20 @@ describe('Login Reducer', () => {
   describe('when LOGIN_SUCCESS', () => {
     const action = {
       type: LOGIN_SUCCESS,
-      user: { name: 'cool user', email: 'cool@user.com' }
+      user: {
+        profile: {
+          name: 'cool user',
+          email: 'cool@user.com'
+        },
+        token: 'token123'
+      }
     };
     const prevState = { user: null, err: null, isLoading: true };
 
     it('should set user from action', () => {
       const state = loginReducer(prevState, action);
 
-      expect(state.user).toEqual(action.user);
+      expect(state.user).toEqual(action.user.profile);
     });
 
     it('should isLoading to false', () => {

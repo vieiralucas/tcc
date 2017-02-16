@@ -20,9 +20,42 @@ export const fetchProjectsByUser = user => dispatch => {
 
   return api.getProjectsByEmail(user.email)
     .then(projects => {
-      dispatch(projectsFetched(projects));
+      setTimeout(() => dispatch(projectsFetched(projects)), 1000);
     })
     .catch(err => {
       dispatch(fetchProjectsError(err));
+    });
+};
+
+export const CREATING_PROJECT = 'CREATING_PROJECT';
+
+export const PROJECT_CREATED = 'PROJECT_CREATED';
+export const projectCreated = project => ({
+  type: PROJECT_CREATED,
+  project
+});
+
+export const CREATE_PROJECT_ERROR = 'CREATE_PROJECT_ERROR';
+export const createProjectError = err => ({
+  type: CREATE_PROJECT_ERROR,
+  err
+});
+
+export const createProject = (project, user) => dispatch => {
+  dispatch({
+    type: CREATING_PROJECT
+  });
+
+  return api.createProject(project)
+    .then(nProject => {
+      user.projects.push(nProject._id)
+
+      return api.updateUser(user)
+        .then(() => {
+          dispatch(projectCreated(nProject));
+        });
+    })
+    .catch(err => {
+      dispatch(createProjectError(err));
     });
 };
