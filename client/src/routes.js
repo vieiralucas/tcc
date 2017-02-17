@@ -1,10 +1,11 @@
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
+import { Route, IndexRedirect } from 'react-router'
 import { routerActions } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 
-import Projects from './containers/Projects'
-import Login from './containers/Login'
+import Projects from './containers/Projects';
+import Project from './containers/Project';
+import Login from './containers/Login';
 import Loading from './components/Loading';
 
 // Redirects to /login by default
@@ -16,9 +17,16 @@ const UserIsAuthenticated = UserAuthWrapper({
   wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check
 });
 
+const test = () => <div>test</div>;
+
 export default (
 	<Route path='/'>
-		<IndexRoute component={UserIsAuthenticated(Projects)} />
+    <IndexRedirect to='projects' />
 		<Route path='login' component={Login} />
+		<Route path='projects' component={UserIsAuthenticated(Projects)} />
+    <Route path='projects/:projectId' component={UserIsAuthenticated(Project)}>
+      <IndexRedirect to='usecases' />
+      <Route path='usecases' component={test} />
+    </Route>
 	</Route>
 );

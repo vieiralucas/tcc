@@ -4502,9 +4502,19 @@ react-redux@^4.0.0, react-redux@^4.4.6:
     lodash "^4.2.0"
     loose-envify "^1.1.0"
 
+react-router-apply-middleware@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-router-apply-middleware/-/react-router-apply-middleware-0.0.2.tgz#15c617eeef1f7fc22e35e4ffe2b34408d6849e3f"
+
 react-router-redux@^4.0.7:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-4.0.7.tgz#9b1fde4e70106c50f47214e12bdd888cfb96e2a6"
+
+react-router-relative-links@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-router-relative-links/-/react-router-relative-links-0.1.0.tgz#d3cb30cd1c400f8ca4d1b769c840ee0520acc3f8"
+  dependencies:
+    resolve-pathname "^2.0.0"
 
 react-router@^3.0.0:
   version "3.0.0"
@@ -4885,6 +4895,10 @@ requires-port@1.0.x, requires-port@1.x.x:
 resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
+
+resolve-pathname@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.0.2.tgz#e55c016eb2e9df1de98e85002282bfb38c630436"
 
 resolve@1.1.7, resolve@1.1.x:
   version "1.1.7"
