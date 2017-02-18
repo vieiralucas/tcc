@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const config = require('../../lib/config/config.json');
 
-const { User, Project } = require('../../lib/models');
+const { User, Project, Usecase } = require('../../lib/models');
 
 mongoose.Promise = Bluebird;
 
@@ -25,7 +25,8 @@ const down = () => {
 
   return Bluebird.all([
     User.remove({}),
-    Project.remove({})
+    Project.remove({}),
+    Usecase.remove({})
   ]);
 };
 
