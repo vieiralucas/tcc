@@ -6,7 +6,7 @@ const { Usecase, Project } = require('../lib/models');
 const api = app.api;
 
 describe('UseCases API', () => {
-  describe('POST /api/usecases', () => {
+  describe('POST /api/projects/:projectId/usecases', () => {
     let project;
 
     beforeEach(() => Project.findOne({})
@@ -16,7 +16,7 @@ describe('UseCases API', () => {
     );
 
     it('should need authentication', () => {
-      return api.post('/api/usecases')
+      return api.post(`/api/projects/${project._id}/usecases`)
         .set('Content-Type', 'application/json')
         .send(JSON.stringify({ name: 'usecase', description: 'usecase description' }))
         .expect(401);
@@ -25,13 +25,12 @@ describe('UseCases API', () => {
     it('should create a new usecase', () => {
       let body;
 
-      return api.post('/api/usecases')
+      return api.post(`/api/projects/${project._id}/usecases`)
         .set('Content-Type', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .send(JSON.stringify({
           name: 'usecase',
-          description: 'usecase description',
-          project: project._id
+          description: 'usecase description'
         }))
         .expect(201)
         .expect(({ body: _body }) => {
@@ -49,12 +48,11 @@ describe('UseCases API', () => {
         );
     });
 
-    it('should send 400 if invalid data', () => api.post('/api/usecases')
+    it('should send 400 if invalid data', () => api.post(`/api/projects/${project._id}/usecases`)
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send(JSON.stringify({
-        description: 'usecase description',
-        project: project._id
+        description: 'usecase description'
       }))
       .expect(400)
       .expect(({ body }) => {
@@ -62,19 +60,18 @@ describe('UseCases API', () => {
       })
     );
 
-    it('should send 400 if projectId does not exists', () => {
+    it('should send 404 if projectId does not exists', () => {
       const id = '58a4fc3be818ee667ff53e3d';
-      return api.post('/api/usecases')
+      return api.post(`/api/projects/${id}/usecases`)
         .set('Content-Type', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .send(JSON.stringify({
           name: 'usecase',
-          description: 'usecase description',
-          project: id
+          description: 'usecase description'
         }))
-        .expect(400)
+        .expect(404)
         .expect(({ body }) => {
-          expect(body).to.have.property('message', `Project ${id} does not exist`);
+          expect(body).to.have.property('message', `Project ${id} not found`);
         });
     });
   });
