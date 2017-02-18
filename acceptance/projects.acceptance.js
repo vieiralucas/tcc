@@ -1,15 +1,23 @@
 const { expect } = require('chai');
 
-const { app } = require('./support');
+const { app, token } = require('./support');
 const { User, Project } = require('../lib/models');
 
 const api = app.api;
 
 describe('Projects API', () => {
   describe('POST /api/projects', () => {
+    it('should need authentication', () => {
+      return api.post('/api/projets')
+        .set('Content-Type', 'application/json')
+        .send(JSON.stringify({ name: 'project', description: 'project description' }))
+        .expect(401);
+    });
+
     it('should create a new project', () => {
       return api.post('/api/projects')
         .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
         .send(JSON.stringify({ name: 'project', description: 'project description' }))
         .expect(201)
         .expect(({ body }) => {
@@ -24,6 +32,7 @@ describe('Projects API', () => {
     it('should list all projects', () => {
       return api.get('/api/projects')
         .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
         .expect(200)
         .expect(({ body }) => {
           expect(body).to.be.an('array');
@@ -38,6 +47,7 @@ describe('Projects API', () => {
         return api.get('/api/projects')
           .query({ user: 'unknown' })
           .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
           .expect(404)
           .expect(({ body }) => {
             expect(body).to.have.property('message', 'User unknown not found');
@@ -62,6 +72,7 @@ describe('Projects API', () => {
             return api.get('/api/projects')
               .query({ user: 'with@project.com' })
               .set('Content-Type', 'application/json')
+              .set('Authorization', `Bearer ${token}`)
               .expect(200)
               .expect(({ body }) => {
                 expect(body).to.be.an('array');
@@ -79,6 +90,7 @@ describe('Projects API', () => {
         .then(project => {
           return api.get(`/api/projects/${project._id}`)
             .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect(({ body }) => {
               expect(body).to.have.property('_id', '' + project._id);
@@ -91,12 +103,14 @@ describe('Projects API', () => {
     it('should send 400 if supplied id is invalid', () => {
       return api.get('/api/projects/123456')
         .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
         .expect(400);
     });
 
     it('should send 404 if project is not found', () => {
       return api.get('/api/projects/58931694a7f04980f74af8c9')
         .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
         .expect(404);
     });
   });

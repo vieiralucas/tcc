@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const { app } = require('./support');
 const { expect } = require('chai');
 
@@ -31,9 +33,11 @@ describe('Session API', () => {
         .send(JSON.stringify({ email: 'admin@test.com', password: 'admin' }))
         .expect(200)
         .expect(({ status, body }) => {
+          delete body.profile._id;
           expect(body).to.have.property('profile').eql({
             name: 'admin',
-            email: 'admin@test.com'
+            email: 'admin@test.com',
+            projects: []
           });
 
           expect(body).to.have.property('token').which.is.a('string');

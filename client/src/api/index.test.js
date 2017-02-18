@@ -4,12 +4,36 @@ describe('API', () => {
   let fetchBody;
 
   beforeEach(() => {
+    class LocalStorageMock {
+      constructor() {
+        this.store = {};
+      }
+
+      clear() {
+        this.store = {};
+      }
+
+      getItem(key) {
+        return this.store[key];
+      }
+
+      setItem(key, value) {
+        this.store[key] = value.toString();
+      }
+    };
+
+    global.localStorage = new LocalStorageMock;
+
     fetchBody = { data: 'from backend' };
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(fetchBody),
       ok: true
     }));
     api.token = undefined;
+  });
+
+  afterEach(() => {
+    delete global.localStorage;
   });
 
   describe('.getSession', () => {
