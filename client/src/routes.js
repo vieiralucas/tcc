@@ -5,6 +5,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 
 import Projects from './containers/Projects';
 import Project from './containers/Project';
+import Usecases from './containers/Usecases';
 import Login from './containers/Login';
 import Loading from './components/Loading';
 
@@ -17,8 +18,6 @@ const UserIsAuthenticated = UserAuthWrapper({
   wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check
 });
 
-const test = () => <div>test</div>;
-
 export default (
 	<Route path='/'>
     <IndexRedirect to='projects' />
@@ -26,7 +25,7 @@ export default (
 		<Route path='projects' component={UserIsAuthenticated(Projects)} />
     <Route path='projects/:projectId' component={UserIsAuthenticated(Project)}>
       <IndexRedirect to='usecases' />
-      <Route path='usecases' component={test} />
+      <Route path='usecases' component={UserIsAuthenticated(Usecases)} />
     </Route>
 	</Route>
 );

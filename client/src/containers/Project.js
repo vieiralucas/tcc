@@ -26,8 +26,9 @@ class Project extends Component {
   }
 }
 
-const mapStateToProps = ({ login }) => ({
-  user: login.user
+const mapStateToProps = ({ login }, { params }) => ({
+  user: login.user,
+  projectId: params.projectId
 });
 
 const mapDispatchToProps = dispatch => ({ });

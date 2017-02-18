@@ -20,7 +20,7 @@ export const fetchProjectsByUser = user => dispatch => {
 
   return api.getProjectsByEmail(user.email)
     .then(projects => {
-      setTimeout(() => dispatch(projectsFetched(projects)), 1000);
+      dispatch(projectsFetched(projects));
     })
     .catch(err => {
       dispatch(fetchProjectsError(err));

@@ -128,6 +128,14 @@ const api = () => {
       });
   };
 
+  api.getUsecasesForProject = projectId => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return get(`/api/projects/${projectId}/usecases`);
+  };
+
   return api;
 };
 
