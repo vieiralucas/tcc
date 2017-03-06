@@ -84,6 +84,19 @@ const api = () => {
     return performRequest(path, config);
   };
 
+  const del = path => {
+    const config = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return performRequest(path, config);
+  };
+
   api.getSession = credentials => post('/api/sessions', credentials)
     .then(user => {
       api.token = user.token;
@@ -134,6 +147,30 @@ const api = () => {
     }
 
     return get(`/api/projects/${projectId}/usecases`);
+  };
+
+  api.createUsecase = usecase => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return post(`/api/projects/${usecase.project}/usecases`, usecase);
+  };
+
+  api.updateUsecase = usecase => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return put(`/api/projects/${usecase.project}/usecases/${usecase._id}`, usecase);
+  };
+
+  api.removeUsecase = usecase => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return del(`/api/projects/${usecase.project}/usecases/${usecase._id}`);
   };
 
   return api;

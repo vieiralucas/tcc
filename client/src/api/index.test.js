@@ -84,7 +84,7 @@ describe('API', () => {
   describe('.getUsecasesForProject', () => {
     it('should throw error if no token', () => {
       expect(() => {
-        api.getUsecasesForProject('1234')
+        api.getUsecasesForProject('1234');
       }).toThrowError('Missing token');
     });
 
@@ -97,6 +97,38 @@ describe('API', () => {
         headers: {
           Authorization: 'Bearer super token'
         }
+      });
+    });
+  });
+
+  describe('.createUseCase', () => {
+    let usecase;
+
+    beforeEach(() => {
+      usecase = {
+        name: 'usecase',
+        description: 'description',
+        project: '123'
+      };
+    });
+
+    it('should throw error if no token', () => {
+      expect(() => {
+        api.createUsecase(usecase);
+      }).toThrowError('Missing token');
+    });
+
+    it('should make a post with usecase', () => {
+      api.token = 'super token';
+      api.createUsecase(usecase);
+
+      expect(fetch).toHaveBeenCalledWith('/api/projects/123/usecases', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer super token',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usecase)
       });
     });
   });
