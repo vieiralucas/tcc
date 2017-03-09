@@ -14,11 +14,11 @@ const initialState = {
 const projects = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_PROJECTS_BY_USER:
-    return { ...state, loading: true };
+    return { list: [], loading: true, error: null };
   case PROJECTS_FETCHED:
-    return { ...state, list: action.projects, loading: false };
+    return { list: action.projects, loading: false, error: null };
   case FETCH_PROJECTS_ERROR:
-    return { ...state, loading: false, error: action.error };
+    return { list: [], loading: false, error: action.error };
   case PROJECT_CREATED:
     return { ...state, list: [...state.list, action.project ]};
   default:
