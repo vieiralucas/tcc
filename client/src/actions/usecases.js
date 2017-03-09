@@ -41,7 +41,7 @@ export const createUsecaseError = err => ({
   err
 });
 
-export const createUsecase = (usecase, user) => dispatch => {
+export const createUsecase = usecase => dispatch => {
   dispatch({
     type: CREATING_USECASE
   });
