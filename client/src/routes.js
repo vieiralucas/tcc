@@ -6,6 +6,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import Projects from './containers/Projects';
 import Project from './containers/Project';
 import Usecases from './containers/Usecases';
+import Actors from './containers/Actors';
 import Login from './containers/Login';
 import Loading from './components/Loading';
 
@@ -26,6 +27,7 @@ export default (
     <Route path='projects/:projectId' component={UserIsAuthenticated(Project)}>
       <IndexRedirect to='usecases' />
       <Route path='usecases' component={UserIsAuthenticated(Usecases)} />
+      <Route path='actors' component={UserIsAuthenticated(Actors)} />
     </Route>
 	</Route>
 );

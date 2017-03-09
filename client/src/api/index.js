@@ -173,6 +173,38 @@ const api = () => {
     return del(`/api/projects/${usecase.project}/usecases/${usecase._id}`);
   };
 
+  api.getActorsForProject = projectId => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return get(`/api/projects/${projectId}/actors`);
+  };
+
+  api.createActor = actor => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return post(`/api/projects/${actor.project}/actors`, actor);
+  };
+
+  api.updateActor = actor => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return put(`/api/projects/${actor.project}/actors/${actor._id}`, actor);
+  };
+
+  api.removeActor = actor => {
+    if (!token) {
+      throw new Error('Missing token');
+    }
+
+    return del(`/api/projects/${actor.project}/actors/${actor._id}`);
+  };
+
   return api;
 };
 

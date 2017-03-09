@@ -4,13 +4,15 @@ import useCaseDiagram from './use-case-diagram';
 import login from './login';
 import projects from './projects';
 import usecases from './usecases';
+import actors from './actors';
 
 const rootReducer = combineReducers({
   useCaseDiagram,
 	login,
   routing,
   projects,
-  usecases
+  usecases,
+  actors
 });
 
 export default rootReducer
