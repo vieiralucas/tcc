@@ -7,6 +7,7 @@ import Projects from './containers/Projects';
 import Project from './containers/Project';
 import Usecases from './containers/Usecases';
 import Actors from './containers/Actors';
+import UsecaseDiagram from './containers/UsecaseDiagram';
 import Login from './containers/Login';
 import Loading from './components/Loading';
 
@@ -28,6 +29,7 @@ export default (
       <IndexRedirect to='usecases' />
       <Route path='usecases' component={UserIsAuthenticated(Usecases)} />
       <Route path='actors' component={UserIsAuthenticated(Actors)} />
+      <Route path='usecasediagram' component={UserIsAuthenticated(UsecaseDiagram)} />
     </Route>
 	</Route>
 );

@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import Canvas from '../components/use-case-diagram/Canvas';
 import Toolbox from '../components/use-case-diagram/Toolbox';
 import * as actions from '../actions/use-case-diagram';
 
-const UseCaseDiagram = props => (
-  <div className='tile is-ancestor is-full-height'>
-    <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
-    <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
-      onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
-      addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
-      boundUpdate={props.boundUpdate} components={props.components} />
-  </div>
-);
+class UsecaseDiagram extends Component {
+  render() {
+    const props = this.props;
+
+    return (
+      <div className='tile is-ancestor is-full-height'>
+        <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
+        <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
+          onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
+          addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
+          boundUpdate={props.boundUpdate} components={props.components} />
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = ({ useCaseDiagram, user }, ownProps) => ({
   components: useCaseDiagram.components,
@@ -50,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UseCaseDiagram);
+)(DragDropContext(HTML5Backend)(UsecaseDiagram));
