@@ -7,14 +7,14 @@ import {
 } from '../../../actions/use-case-diagram';
 
 const associationExists = (associations, actorId, useCaseId) =>
-  associations.some(a => a.actor.id === actorId && a.useCase.id === useCaseId);
+  associations.some(a => a.actor._id === actorId && a.useCase._id === useCaseId);
 
 const associations = (associations = [], action) => {
   switch (action.type) {
   case UML_COMPONENT_MOVE:
     if (action.componentType === 'actor') {
       return associations.map(a => {
-        if (a.actor.id === action.id) {
+        if (a.actor._id === action._id) {
           return { ...a, actor: { ...a.actor, x: action.x, y: action.y }};
         }
 
@@ -24,7 +24,7 @@ const associations = (associations = [], action) => {
 
     if (action.componentType === 'usecase') {
       return associations.map(a => {
-        if (a.useCase.id === action.id) {
+        if (a.useCase._id === action._id) {
           return { ...a, useCase: { ...a.useCase, x: action.x, y: action.y }};
         }
 
@@ -38,7 +38,7 @@ const associations = (associations = [], action) => {
       return associations;
     }
 
-    const index = _.findIndex(associations, a => a.id === action.id);
+    const index = _.findIndex(associations, a => a._id === action._id);
     if (index !== -1) {
       return [...associations.slice(0, index), ...associations.slice(index + 1)];
     } else {
@@ -54,13 +54,13 @@ const associations = (associations = [], action) => {
       return associations;
     }
 
-    if (associationExists(associations, actor.id, useCase.id)) {
+    if (associationExists(associations, actor._id, useCase._id)) {
       return associations;
     }
 
     return associations.concat([{
       type: 'association',
-      id: uuid.v1(),
+      _id: uuid.v1(),
       useCase, actor
     }]);
   default:

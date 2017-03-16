@@ -28,12 +28,12 @@ class UseCaseAssociationItem extends Component {
     }
 
     if (keyCode === 8) {
-      this.props.deleteComponent(this.props.id, this.props.type);
+      this.props.deleteComponent(this.props._id, this.props.type);
     }
   }
 
   toggleType = () => {
-    this.props.toggleUseCaseAssociationType(this.props.id);
+    this.props.toggleUseCaseAssociationType(this.props._id);
   }
 
   render() {
@@ -96,20 +96,34 @@ class UseCaseAssociationItem extends Component {
 
     switch (quadrant) {
       case 'right':
-        contactPoint = { x: useCase2.x + useCase2.bound.width / 2, y: useCase2.y };
-	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x + 10} ${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
+        contactPoint = {
+          x: useCase2.x + useCase2.bound.width / 2,
+          y: useCase2.y 
+        };
+        arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x + 10} ` +
+          `${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} ` +
+          `L ${contactPoint.x} ${contactPoint.y}`;
         break;
       case 'bottom':
         contactPoint = { x: useCase2.x, y: useCase2.y + useCase2.bound.height / 2 };
-	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y + 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
+        arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ` +
+          `${contactPoint.y + 10} M ${contactPoint.x + 10} ${contactPoint.y + 10} ` +
+          `L ${contactPoint.x} ${contactPoint.y}`;
         break;
       case 'top':
         contactPoint = { x: useCase2.x, y: useCase2.y - useCase2.bound.height / 2 };
-	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y - 10} L ${contactPoint.x} ${contactPoint.y}`;
+        arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ` +
+          `${contactPoint.y - 10} M ${contactPoint.x + 10} ${contactPoint.y - 10} ` +
+          `L ${contactPoint.x} ${contactPoint.y}`;
         break;
       default: {
-        contactPoint = { x: useCase2.x - useCase2.bound.width / 2, y: useCase2.y };
-	arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ${contactPoint.y - 10} M ${contactPoint.x - 10} ${contactPoint.y + 10} L ${contactPoint.x} ${contactPoint.y}`;
+        contactPoint = {
+          x: useCase2.x - useCase2.bound.width / 2,
+          y: useCase2.y 
+        };
+        arrow = `M ${contactPoint.x} ${contactPoint.y} L ${contactPoint.x - 10} ` +
+          `${contactPoint.y - 10} M ${contactPoint.x - 10} ${contactPoint.y + 10} ` +
+          `L ${contactPoint.x} ${contactPoint.y}`;
         break;
       }
     }

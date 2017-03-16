@@ -52,11 +52,11 @@ class Canvas extends Component {
         umlComponentLink={umlComponentLink}  boundUpdate={boundUpdate} />;
 
     const renderActorUseCaseAssociation = association =>
-      <ActorUseCaseAssociationItem key={association.id} {...association}
+      <ActorUseCaseAssociationItem key={association._id} {...association}
         deleteComponent={deleteComponent} />;
 
     const renderUseCaseAssociation = association =>
-      <UseCaseAssociationItem key={association.id} {...association}
+      <UseCaseAssociationItem key={association._id} {...association}
         toggleUseCaseAssociationType={toggleUseCaseAssociationType}
         deleteComponent={deleteComponent} />;
 

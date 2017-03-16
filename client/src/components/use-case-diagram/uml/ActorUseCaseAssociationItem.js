@@ -28,7 +28,7 @@ class ActorUseCaseAssociationItem extends Component {
     }
 
     if (keyCode === 8) {
-      this.props.deleteComponent(this.props.id, this.props.type);
+      this.props.deleteComponent(this.props._id, this.props.type);
     }
   }
 

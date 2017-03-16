@@ -9,11 +9,18 @@ import {
   UML_COMPONENT_MOVE
 } from '../../../actions/use-case-diagram';
 
+const associationExists = (associations, useCase1Id, useCase2Id) =>
+  associations.some(a => a.useCase1._id === useCase1Id && a.useCase2._id === useCase2Id);
+
 const useCaseAssociations = (associations = [], action) => {
   switch (action.type) {
   case ADD_USE_CASE_ASSOCIATION:
+    if (associationExists(associations, action.useCase1._id, action.useCase2._id)) {
+      return associations;
+    }
+
     return associations.concat([{
-      id: uuid.v1(),
+      _id: uuid.v1(),
       type: 'usecase-association',
       associationType: 'INCLUDES',
       useCase1: action.useCase1,
@@ -22,11 +29,11 @@ const useCaseAssociations = (associations = [], action) => {
   case UML_COMPONENT_MOVE:
     if (action.componentType === 'usecase') {
       return associations.map(a => {
-        if (a.useCase1.id === action.id) {
+        if (a.useCase1._id === action._id) {
           return { ...a, useCase1: { ...a.useCase1, x: action.x, y: action.y }};
         }
 
-        if (a.useCase2.id === action.id) {
+        if (a.useCase2._id === action._id) {
           return { ...a, useCase2: { ...a.useCase2, x: action.x, y: action.y }};
         }
 
@@ -40,7 +47,7 @@ const useCaseAssociations = (associations = [], action) => {
       return associations;
     }
 
-    const index = _.findIndex(associations, a => a.id === action.id);
+    const index = _.findIndex(associations, a => a._id === action._id);
     if (index !== -1) {
       return [...associations.slice(0, index), ...associations.slice(index + 1)];
     } else {
@@ -53,7 +60,7 @@ const useCaseAssociations = (associations = [], action) => {
     };
 
     return associations.map(a => {
-      if (a.id === action.id) {
+      if (a._id === action._id) {
         return { ...a, associationType: swapMap[a.associationType] };
       }
 
@@ -61,11 +68,11 @@ const useCaseAssociations = (associations = [], action) => {
     });
   case UML_COMPONENT_BOUND_UPDATE:
     return associations.map(a => {
-      if (a.useCase1.id === action.id) {
+      if (a.useCase1._id === action._id) {
         return { ...a, useCase1: { ...a.useCase1, bound: action.bound } };
       }
 
-      if (a.useCase2.id === action.id) {
+      if (a.useCase2._id === action._id) {
         return { ...a, useCase2: { ...a.useCase2, bound: action.bound } };
       }
 
