@@ -14,11 +14,15 @@ class UsecaseDiagram extends Component {
 
   render() {
     const props = this.props;
+    const availableActors = props.actors
+      .filter(u => !props.components.actors.find(c => c._id === u._id));
+    const availableUsecases = props.usecases
+      .filter(u => !props.components.useCases.find(c => c._id === u._id));
 
     return (
       <div className='tile is-ancestor is-full-height'>
         <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox}
-          actors={props.actors} usecases={props.usecases}
+          actors={availableActors} usecases={availableUsecases}
           addComponent={props.addComponent} />
         <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
           onNameChange={props.onNameChange}
