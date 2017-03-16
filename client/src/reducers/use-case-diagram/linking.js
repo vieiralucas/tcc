@@ -15,7 +15,7 @@ const linking = (linking = initial, action) => {
       };
     }
 
-    if (linking.comp1.id === action.component.id) {
+    if (linking.comp1._id === action.component._id) {
       return linking;
     }
 

@@ -22,7 +22,7 @@ const associations = (associations = [], action) => {
       });
     }
 
-    if (action.componentType === 'use-case') {
+    if (action.componentType === 'usecase') {
       return associations.map(a => {
         if (a.useCase.id === action.id) {
           return { ...a, useCase: { ...a.useCase, x: action.x, y: action.y }};
@@ -48,7 +48,7 @@ const associations = (associations = [], action) => {
     const comps = [action.comp1, action.comp2];
 
     const actor = comps.find(c => c.type === 'actor');
-    const useCase = comps.find(c => c.type === 'use-case');
+    const useCase = comps.find(c => c.type === 'usecase');
 
     if (!actor || !useCase) {
       return associations;

@@ -17,13 +17,17 @@ const Toolbox = props => {
     margin: 'auto',
     marginBottom: 10
   };
+  
+  const { actors, usecases, addComponent } = props;
 
   return (
     <div className='container toolbox is-fluid tile is-parent is-vertical is-2'>
-      <ToolboxItem title='Actor' type='actor' onClick={props.onClick}>
+      <ToolboxItem title='Actor' type='actor'
+        onClick={props.onClick} items={actors} addComponent={addComponent}>
         <ActorSVG width={100} style={actorStyle}/>
       </ToolboxItem>
-      <ToolboxItem title='Use Case' type='use-case' onClick={props.onClick}>
+      <ToolboxItem title='Use Case' type='usecase'
+        onClick={props.onClick} items={usecases} addComponent={addComponent}>
         <div style={useCaseStyle}>
           <p>Use Case Name</p>
         </div>

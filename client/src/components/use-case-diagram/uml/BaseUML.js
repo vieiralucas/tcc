@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 const umlComponentSource = {
   beginDrag(props) {
-    const { id, x, y, type } = props;
-    return { id, x, y, type };
+    const { _id, x, y, type } = props;
+    return { _id, x, y, type };
   }
 };
 
@@ -20,12 +20,12 @@ class BaseUML extends Component {
     const newBound = this.getBound();
 
     if (!_.isEqual(prevProps.bound, newBound)) {
-      this.props.boundUpdate(this.props.id, newBound);
+      this.props.boundUpdate(this.props._id, newBound);
     }
   }
 
   componentDidMount() {
-    this.props.boundUpdate(this.props.id, this.getBound());
+    this.props.boundUpdate(this.props._id, this.getBound());
   }
 
   render() {

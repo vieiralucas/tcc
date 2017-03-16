@@ -28,11 +28,11 @@ class ActorItem extends Component {
   }
 
   umlComponentLink() {
-    this.props.umlComponentLink(_.pick(this.props, 'id', 'type', 'name', 'x', 'y'));
+    this.props.umlComponentLink(_.pick(this.props, '_id', 'type', 'name', 'x', 'y'));
   }
 
   render() {
-    const { id, name, onNameChange } = this.props;
+    const { _id, name, onNameChange } = this.props;
     const fontSize = 10;
     const nameWidth = fontSize * name.length;
     const actorWidth = 20;
@@ -57,7 +57,7 @@ class ActorItem extends Component {
 
     const renderInput = () => (
       <textarea ref='nameInput' value={name} onBlur={this.leaveEdit.bind(this)}
-        onChange={({ target }) => onNameChange(id, target.value) } style={inputStyle} />
+        onChange={({ target }) => onNameChange(_id, target.value) } style={inputStyle} />
     );
     const renderParagraph = () => <p style={paragraphStyle}>{ name }</p>
 

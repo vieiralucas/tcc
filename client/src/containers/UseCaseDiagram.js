@@ -1,62 +1,76 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import Canvas from '../components/use-case-diagram/Canvas';
 import Toolbox from '../components/use-case-diagram/Toolbox';
-import * as actions from '../actions/use-case-diagram';
+import * as diagramActions from '../actions/use-case-diagram';
+import * as actorsActions from '../actions/actors';
+import * as usecasesActions from '../actions/usecases';
 
 class UsecaseDiagram extends Component {
+  componentWillMount() {
+    this.props.fetchItems(this.props.projectId);
+  }
+
   render() {
     const props = this.props;
 
     return (
       <div className='tile is-ancestor is-full-height'>
-        <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox} />
+        <Toolbox onClick={props.toolboxSelection} toolbox={props.toolbox}
+          actors={props.actors} usecases={props.usecases}
+          addComponent={props.addComponent} />
         <Canvas onMove={props.onMove} deleteComponent={props.deleteComponent}
-          onNameChange={props.onNameChange} umlComponentLink={props.umlComponentLink}
-          addComponent={props.addComponent} toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
+          onNameChange={props.onNameChange}
+          umlComponentLink={props.umlComponentLink}
+          toggleUseCaseAssociationType={props.toggleUseCaseAssociationType}
           boundUpdate={props.boundUpdate} components={props.components} />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ useCaseDiagram, user }, ownProps) => ({
+const mapStateToProps = ({ useCaseDiagram, user, actors, usecases }, ownProps) => ({
   components: useCaseDiagram.components,
   toolbox: useCaseDiagram.toolbox,
-  user
+  projectId: ownProps.params.projectId,
+  user,
+  actors: actors.list,
+  usecases: usecases.list
 });
 
 const mapDispatchToProps = dispatch => ({
-  onMove: (id, x, y, componentType) => {
-    dispatch(actions.umlComponentMove(id, x, y, componentType));
+  onMove: (_id, x, y, componentType) => {
+    dispatch(diagramActions.umlComponentMove(_id, x, y, componentType));
   },
-  deleteComponent: (id, componentType) => {
-    dispatch(actions.umlComponentDelete(id, componentType));
+  deleteComponent: (_id, componentType) => {
+    dispatch(diagramActions.umlComponentDelete(_id, componentType));
   },
   onNameChange: (id, name) => {
-    dispatch(actions.umlComponentNameChange(id, name));
+    dispatch(diagramActions.umlComponentNameChange(id, name));
   },
-  umlComponentLink: (id, componentType) => {
-    dispatch(actions.umlComponentLink(id, componentType));
+  umlComponentLink: (_id, componentType) => {
+    dispatch(diagramActions.umlComponentLink(_id, componentType));
   },
-  boundUpdate: (id, bound) => {
-    dispatch(actions.umlComponentBoundUpdate(id, bound));
+  boundUpdate: (_id, bound) => {
+    dispatch(diagramActions.umlComponentBoundUpdate(_id, bound));
   },
   toolboxSelection: type => {
-    dispatch(actions.toolboxSelection(type));
+    dispatch(diagramActions.toolboxSelection(type));
   },
-  addComponent: (x, y, type) => {
-    dispatch(actions.addComponent(x, y, type));
+  addComponent: (type, component) => {
+    dispatch(diagramActions.addComponent(type, component));
   },
-  toggleUseCaseAssociationType: id => {
-    dispatch(actions.toggleUseCaseAssociationType(id));
+  toggleUseCaseAssociationType: _id => {
+    dispatch(diagramActions.toggleUseCaseAssociationType(_id));
+  },
+  fetchItems: projectId => {
+    dispatch(actorsActions.fetchActors(projectId));
+    dispatch(usecasesActions.fetchUsecases(projectId));
   }
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DragDropContext(HTML5Backend)(UsecaseDiagram));
+)(UsecaseDiagram);

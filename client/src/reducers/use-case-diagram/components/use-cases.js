@@ -1,5 +1,3 @@
-import uuid from 'uuid';
-
 import {
   UML_COMPONENT_MOVE,
   UML_COMPONENT_NAME_CHANGE,
@@ -11,7 +9,7 @@ const useCases = (useCases = [], action) => {
   switch (action.type) {
   case UML_COMPONENT_BOUND_UPDATE:
     return useCases.map(c => {
-      if (c.id === action.id) {
+      if (c._id === action._id) {
         return { ...c, bound: action.bound };
       }
 
@@ -19,7 +17,7 @@ const useCases = (useCases = [], action) => {
     });
   case UML_COMPONENT_MOVE:
     return useCases.map(c => {
-      if (c.id === action.id) {
+      if (c._id === action._id) {
         return { ...c, x: action.x, y: action.y };
       }
 
@@ -27,18 +25,17 @@ const useCases = (useCases = [], action) => {
     });
   case UML_COMPONENT_NAME_CHANGE:
     return useCases.map(c => {
-      if (c.id === action.id) {
+      if (c._id === action._id) {
         return { ...c, name: action.name };
       }
 
       return c;
     });
   case ADD_COMPONENT:
-    if (action.componentType === 'use-case') {
+    if (action.componentType === 'usecase') {
       return useCases.concat([{
-        id: uuid.v1(),
-        type: 'use-case',
-        name: 'Use Case',
+        ...action.component,
+        type: 'usecase',
         x: action.x,
         y: action.y
       }]);

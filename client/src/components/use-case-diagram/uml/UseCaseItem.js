@@ -27,7 +27,7 @@ class UseCaseItem extends Component {
   }
 
   umlComponentLink() {
-    const useCaseProps = _.pick(this.props, 'id', 'type', 'name', 'x', 'y', 'bound');
+    const useCaseProps = _.pick(this.props, '_id', 'type', 'name', 'x', 'y', 'bound');
     this.props.umlComponentLink(useCaseProps);
   }
 

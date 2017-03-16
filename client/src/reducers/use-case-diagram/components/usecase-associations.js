@@ -20,7 +20,7 @@ const useCaseAssociations = (associations = [], action) => {
       useCase2: action.useCase2
     }]);
   case UML_COMPONENT_MOVE:
-    if (action.componentType === 'use-case') {
+    if (action.componentType === 'usecase') {
       return associations.map(a => {
         if (a.useCase1.id === action.id) {
           return { ...a, useCase1: { ...a.useCase1, x: action.x, y: action.y }};
